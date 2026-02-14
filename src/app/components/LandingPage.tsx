@@ -3,6 +3,7 @@ import { Star, MessageSquare, ExternalLink, Sparkles, Menu, X } from 'lucide-rea
 import { useAuth } from '../contexts/AuthContext';
 import { useState } from 'react';
 import { Footer } from './Footer';
+import { SEO } from './SEO';
 import logo from "figma:asset/522972406135c9ad603cf025748077edfe6ccf73.png";
 
 export function LandingPage() {
@@ -12,6 +13,13 @@ export function LandingPage() {
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-slate-50 to-slate-100">
+      <SEO
+        title="Turn Negative Feedback into Growth Opportunities"
+        description="Capture negative customer experiences privately while directing happy customers to leave public reviews. Build your reputation intelligently with Feedback Page."
+        keywords="customer feedback, online reviews, reputation management, feedback collection, review management, customer satisfaction"
+        canonical="https://feedbackpage.com"
+      />
+
       {/* Header */}
       <header className="border-b border-slate-200 bg-white/80 backdrop-blur-sm sticky top-0 z-50">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-3 md:py-4">

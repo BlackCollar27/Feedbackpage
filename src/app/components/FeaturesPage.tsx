@@ -1,77 +1,22 @@
 import { Link } from 'react-router';
 import { Star, MessageSquare, BarChart3, Download, Smartphone, Settings, Shield, Zap, Users, Globe, CheckCircle, TrendingUp, Menu, X } from 'lucide-react';
 import { Footer } from './Footer';
+import { SEO } from './SEO';
 import logo from "figma:asset/522972406135c9ad603cf025748077edfe6ccf73.png";
 import { useState } from 'react';
 
 export function FeaturesPage() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
-  const features = [
-    {
-      icon: Smartphone,
-      title: 'Mobile-First Design',
-      description: 'Beautiful, responsive pages that work perfectly on any device. Your customers get a seamless experience whether they\'re on mobile, tablet, or desktop.'
-    },
-    {
-      icon: Settings,
-      title: 'Custom Branding',
-      description: 'Add your logo and business name to build trust with your customers. Make the feedback page feel like a natural extension of your brand.'
-    },
-    {
-      icon: Globe,
-      title: 'Multiple Review Platforms',
-      description: 'Direct happy customers to Google Reviews, Yelp, Facebook, TripAdvisor, and more. Connect all your review platforms in one place.'
-    },
-    {
-      icon: BarChart3,
-      title: 'Dashboard Analytics',
-      description: 'View all feedback submissions in one centralized dashboard. Track your average rating and monitor customer sentiment over time.'
-    },
-    {
-      icon: Download,
-      title: 'Export Data',
-      description: 'Download all feedback as CSV for further analysis. Use the data to identify trends and improve your business operations.'
-    },
-    {
-      icon: MessageSquare,
-      title: 'Private Feedback Collection',
-      description: 'Capture negative feedback privately before it becomes a public review. Give yourself a chance to make things right with unhappy customers.'
-    },
-    {
-      icon: Star,
-      title: 'Smart Rating Router',
-      description: 'Automatically route customers based on their star rating. Low ratings go to private feedback, high ratings go to public review sites.'
-    },
-    {
-      icon: CheckCircle,
-      title: 'Suggestion Box',
-      description: 'Let happy customers share ideas for improvement too. Collect constructive feedback from satisfied customers to keep getting better.'
-    },
-    {
-      icon: Users,
-      title: 'Multi-Location Support',
-      description: 'Manage multiple locations from a single dashboard. Perfect for franchises, chains, or businesses with multiple branches.'
-    },
-    {
-      icon: Shield,
-      title: 'Reputation Protection',
-      description: 'Protect your online reputation by catching negative feedback before it goes public. Turn potential 1-star reviews into opportunities to improve.'
-    },
-    {
-      icon: Zap,
-      title: 'Quick Setup',
-      description: 'Get started in under 2 minutes. No technical skills required - just add your business info and review platform links.'
-    },
-    {
-      icon: TrendingUp,
-      title: 'Improve Customer Satisfaction',
-      description: 'Use private feedback to identify and fix problems quickly. Show customers you care about their experience and are committed to improvement.'
-    }
-  ];
-
   return (
     <div className="min-h-screen bg-gradient-to-br from-slate-50 to-slate-100">
+      <SEO
+        title="Features - Comprehensive Feedback Management Tools"
+        description="Mobile-first design, custom branding, multi-platform integration, analytics dashboard, CSV exports, and more. Everything you need to manage customer feedback."
+        keywords="feedback features, review management tools, customer feedback software, analytics dashboard"
+        canonical="https://feedbackpage.com/features"
+      />
+
       {/* Header */}
       <header className="border-b border-slate-200 bg-white/80 backdrop-blur-sm sticky top-0 z-50">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-3 md:py-4">

@@ -23,6 +23,16 @@ import { LocationStatsPage } from './components/dashboard/LocationStatsPage';
 import { CancelPlanPage } from './components/dashboard/CancelPlanPage';
 import { PlansPage } from './components/dashboard/PlansPage';
 import { ContactSupportPage } from './components/dashboard/ContactSupportPage';
+import { AdminLayout } from './components/admin/AdminLayout';
+import { AdminDashboard } from './components/admin/AdminDashboard';
+import { AdminUsersPage } from './components/admin/AdminUsersPage';
+import { AdminUserDetail } from './components/admin/AdminUserDetail';
+import { AdminLocationsPage } from './components/admin/AdminLocationsPage';
+import { AdminLocationDetail } from './components/admin/AdminLocationDetail';
+import { AdminFeedbackPage } from './components/admin/AdminFeedbackPage';
+import { AdminAnalyticsPage } from './components/admin/AdminAnalyticsPage';
+import { AdminSettingsPage } from './components/admin/AdminSettingsPage';
+import { AdminLoginPage } from './components/admin/AdminLoginPage';
 
 export const router = createBrowserRouter([
   {
@@ -131,6 +141,48 @@ export const router = createBrowserRouter([
   {
     path: '/terms-of-service',
     Component: TermsOfServicePage,
+  },
+  {
+    path: '/admin/login',
+    Component: AdminLoginPage,
+  },
+  {
+    path: '/admin',
+    Component: AdminLayout,
+    children: [
+      {
+        index: true,
+        Component: AdminDashboard,
+      },
+      {
+        path: 'users',
+        Component: AdminUsersPage,
+      },
+      {
+        path: 'users/:userId',
+        Component: AdminUserDetail,
+      },
+      {
+        path: 'locations',
+        Component: AdminLocationsPage,
+      },
+      {
+        path: 'locations/:locationId',
+        Component: AdminLocationDetail,
+      },
+      {
+        path: 'feedback',
+        Component: AdminFeedbackPage,
+      },
+      {
+        path: 'analytics',
+        Component: AdminAnalyticsPage,
+      },
+      {
+        path: 'settings',
+        Component: AdminSettingsPage,
+      },
+    ],
   },
   {
     path: '*',

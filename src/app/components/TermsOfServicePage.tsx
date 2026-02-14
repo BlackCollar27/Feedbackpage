@@ -1,5 +1,6 @@
 import { Link } from 'react-router';
 import { Footer } from './Footer';
+import { SEO } from './SEO';
 import { Menu, X } from 'lucide-react';
 import { useState } from 'react';
 import logo from "figma:asset/522972406135c9ad603cf025748077edfe6ccf73.png";
@@ -9,6 +10,13 @@ export function TermsOfServicePage() {
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-slate-50 to-slate-100 flex flex-col">
+      <SEO
+        title="Terms of Service - Usage Agreement & Guidelines"
+        description="Read our terms of service to understand the rules and regulations for using Feedback Page. Learn about your rights and responsibilities."
+        keywords="terms of service, user agreement, terms and conditions, service terms"
+        canonical="https://feedbackpage.com/terms"
+      />
+
       {/* Header */}
       <header className="border-b border-slate-200 bg-white/80 backdrop-blur-sm sticky top-0 z-50">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-3 md:py-4">

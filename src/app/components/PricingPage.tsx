@@ -4,6 +4,7 @@ import { useAuth } from '../contexts/AuthContext';
 import { Check, Zap, Crown, Building2, Menu, X } from 'lucide-react';
 import { loadStripe } from '@stripe/stripe-js';
 import { Footer } from './Footer';
+import { SEO } from './SEO';
 import logo from "figma:asset/522972406135c9ad603cf025748077edfe6ccf73.png";
 
 export function PricingPage() {
@@ -13,148 +14,15 @@ export function PricingPage() {
   const [billingPeriod, setBillingPeriod] = useState<'monthly' | 'yearly'>('monthly');
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
-  const plans = [
-    {
-      id: 'starter',
-      name: 'Starter',
-      icon: Check,
-      price: { monthly: 29, yearly: 297 },
-      locations: 1,
-      description: 'Perfect for single location businesses',
-      features: [
-        '1 location',
-        'Unlimited feedback submissions',
-        'Advanced analytics',
-        'Priority email support',
-        'Custom branding',
-        'Email notifications',
-        'CSV export',
-      ],
-      cta: 'Start Free Trial',
-      highlighted: false,
-    },
-    {
-      id: 'pro',
-      name: 'Pro',
-      icon: Zap,
-      price: { monthly: 59, yearly: 597 },
-      locations: 5,
-      description: 'For growing businesses',
-      features: [
-        'Up to 5 locations',
-        'Unlimited feedback submissions',
-        'Advanced analytics & reporting',
-        'Priority email support',
-        'Custom branding',
-        'Email notifications',
-        'API access',
-        'Location management dashboard',
-      ],
-      cta: 'Start Free Trial',
-      highlighted: true,
-    },
-    {
-      id: 'business',
-      name: 'Business',
-      icon: Crown,
-      price: { monthly: 99, yearly: 997 },
-      locations: 15,
-      description: 'For multi-location businesses',
-      features: [
-        'Up to 15 locations',
-        'Unlimited feedback submissions',
-        'Advanced analytics & reporting',
-        'Priority email & phone support',
-        'White-label solution',
-        'Custom integrations',
-        'Dedicated account manager',
-        'Advanced security features',
-      ],
-      cta: 'Start Free Trial',
-      highlighted: false,
-    },
-    {
-      id: 'enterprise',
-      name: 'Enterprise',
-      icon: Building2,
-      price: { monthly: null, yearly: null },
-      locations: null,
-      description: 'For large organizations',
-      features: [
-        'Unlimited locations',
-        'Unlimited feedback submissions',
-        'Custom analytics & reporting',
-        '24/7 priority support',
-        'White-label solution',
-        'Custom integrations',
-        'Dedicated success team',
-        'SLA guarantee',
-        'Custom contracts',
-      ],
-      cta: 'Contact Us',
-      highlighted: false,
-    },
-  ];
-
-  const handleSelectPlan = async (planId: string) => {
-    if (planId === 'free') {
-      if (user) {
-        navigate('/onboarding');
-      } else {
-        navigate('/login');
-      }
-      return;
-    }
-
-    if (planId === 'enterprise') {
-      navigate('/contact-us');
-      return;
-    }
-
-    if (!user) {
-      navigate('/login', { state: { returnTo: '/pricing' } });
-      return;
-    }
-
-    // Handle Stripe checkout for Pro plan
-    setLoading(planId);
-    
-    try {
-      // Call your backend to create a Stripe checkout session
-      const response = await fetch(`https://${window.location.hostname}/functions/v1/make-server-6b2adf01/create-checkout-session`, {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-          'Authorization': `Bearer ${user?.id}`,
-        },
-        body: JSON.stringify({
-          planId,
-          billingPeriod,
-        }),
-      });
-
-      const { sessionId, error } = await response.json();
-      
-      if (error) {
-        alert('Failed to start checkout. Please try again.');
-        return;
-      }
-
-      // Redirect to Stripe Checkout
-      const stripe = await loadStripe(import.meta.env.VITE_STRIPE_PUBLIC_KEY || '');
-      if (stripe) {
-        await stripe.redirectToCheckout({ sessionId });
-      }
-    } catch (error) {
-      console.error('Checkout error:', error);
-      alert('Failed to start checkout. Please try again.');
-    } finally {
-      setLoading(null);
-    }
-  };
-
   return (
     <div className="min-h-screen bg-gradient-to-br from-slate-50 to-slate-100">
+      <SEO
+        title="Pricing Plans - Choose Your Perfect Plan"
+        description="Flexible pricing for businesses of all sizes. Start with 1 location or scale to unlimited. Save with yearly billing. Free trial available."
+        keywords="feedback pricing, review management pricing, business plans, subscription plans"
+        canonical="https://feedbackpage.com/pricing"
+      />
+
       {/* Header */}
       <header className="border-b border-slate-200 bg-white/80 backdrop-blur-sm sticky top-0 z-50">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-3 md:py-4">
