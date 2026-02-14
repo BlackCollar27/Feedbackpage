@@ -41,10 +41,6 @@ export const router = createBrowserRouter([
     errorElement: <NotFoundPage />,
   },
   {
-    path: '/home',
-    Component: HomePage,
-  },
-  {
     path: '/demo',
     Component: RatingPage,
   },

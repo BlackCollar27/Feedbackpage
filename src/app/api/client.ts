@@ -147,7 +147,7 @@ export const api = {
       });
       return response.ok;
     } catch (error) {
-      console.error('Error initializing demo:', error);
+      // Silently handle - this is expected if backend isn't available
       return false;
     }
   },

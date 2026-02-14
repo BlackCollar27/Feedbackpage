@@ -19,21 +19,14 @@ export function RatingPage() {
         console.log('Demo initialized successfully');
         setIsInitialized(true);
       } catch (err) {
-        console.error('Failed to init demo:', err);
+        console.log('Demo initialization skipped - continuing with UI');
         // Continue anyway - don't block the UI
         setIsInitialized(true);
       }
     };
     
-    // Set a timeout to ensure initialization doesn't hang the UI
-    const timeout = setTimeout(() => {
-      console.log('Init timeout - enabling UI anyway');
-      setIsInitialized(true);
-    }, 2000); // 2 second timeout
-    
+    // Initialize immediately - no timeout needed
     initializeDemo();
-    
-    return () => clearTimeout(timeout);
   }, []); // Only run once on mount
 
   useEffect(() => {
@@ -84,7 +77,7 @@ export function RatingPage() {
       {/* Back to Home Button - Fixed to top-left */}
       <div className="absolute top-3 left-3 sm:top-4 sm:left-4 z-10">
         <button
-          onClick={() => navigate('/home')}
+          onClick={() => navigate('/')}
           className="flex items-center gap-1.5 text-gray-600 hover:text-gray-900 transition-colors"
         >
           <ArrowLeft className="w-4 h-4" />
