@@ -11,6 +11,7 @@ export function LocationRatingPage() {
   const [loading, setLoading] = useState(true);
   const [rating, setRating] = useState(0);
   const [hoveredRating, setHoveredRating] = useState(0);
+  const [comment, setComment] = useState('');
 
   useEffect(() => {
     const loadLocation = async () => {
@@ -40,6 +41,7 @@ export function LocationRatingPage() {
           navigate('/thank-you', { 
             state: { 
               rating,
+              comment,
               locationId,
               reviewPlatforms: location?.reviewPlatforms || []
             } 
@@ -48,6 +50,7 @@ export function LocationRatingPage() {
           navigate('/feedback', { 
             state: { 
               rating,
+              comment,
               locationId
             } 
           });
@@ -55,7 +58,7 @@ export function LocationRatingPage() {
       }, 500);
       return () => clearTimeout(timer);
     }
-  }, [rating, navigate, location]);
+  }, [rating, comment, navigate, location]);
 
   if (loading) {
     return (
@@ -121,6 +124,20 @@ export function LocationRatingPage() {
                 />
               </button>
             ))}
+          </div>
+
+          {/* Comment Text Box */}
+          <div className="mb-8 md:mb-10">
+            <textarea
+              value={comment}
+              onChange={(e) => setComment(e.target.value)}
+              placeholder="Share more about your experience... (optional)"
+              rows={4}
+              className="w-full px-4 py-3 border border-slate-300 rounded-xl resize-none focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all text-slate-900 placeholder:text-slate-400"
+            />
+            <p className="text-xs text-slate-500 mt-2">
+              This helps us understand your experience better
+            </p>
           </div>
 
           {/* Rating Labels */}

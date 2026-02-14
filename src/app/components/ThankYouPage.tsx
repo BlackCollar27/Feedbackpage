@@ -1,18 +1,31 @@
 import { useState, useEffect } from 'react';
-import { useLocation, useNavigate, Link } from 'react-router';
-import { Star, ExternalLink, CheckCircle2, ArrowLeft, Gift } from 'lucide-react';
+import { useLocation, useNavigate, Link, useSearchParams } from 'react-router';
+import { Star, ExternalLink, CheckCircle2, ArrowLeft, Gift, Copy, Check } from 'lucide-react';
 import logo from "figma:asset/522972406135c9ad603cf025748077edfe6ccf73.png";
 import { api } from '../api/client';
 
 export function ThankYouPage() {
   const location = useLocation();
   const navigate = useNavigate();
-  const rating = location.state?.rating || 0;
-  const comment = location.state?.comment || '';
+  const [searchParams] = useSearchParams();
+  
+  // Try to get data from location.state first, then fall back to URL params
+  const rating = location.state?.rating || Number(searchParams.get('rating')) || 0;
+  const comment = location.state?.comment || searchParams.get('comment') || '';
   const images = location.state?.images || [];
   const [business, setBusiness] = useState<any>(null);
-  const [additionalComment, setAdditionalComment] = useState('');
-  const [submitting, setSubmitting] = useState(false);
+  const [copied, setCopied] = useState(false);
+  
+  // Debug logging
+  useEffect(() => {
+    console.log('ThankYouPage - location.state:', location.state);
+    console.log('ThankYouPage - searchParams rating:', searchParams.get('rating'));
+    console.log('ThankYouPage - searchParams comment:', searchParams.get('comment'));
+    console.log('ThankYouPage - final rating:', rating);
+    console.log('ThankYouPage - final comment:', comment);
+    console.log('ThankYouPage - comment length:', comment.length);
+    console.log('ThankYouPage - comment exists?:', !!comment);
+  }, [location.state, rating, comment, searchParams]);
   
   useEffect(() => {
     const loadBusiness = async () => {
@@ -30,25 +43,20 @@ export function ThankYouPage() {
     loadBusiness();
   }, []);
 
-  const handleSubmitComment = async () => {
-    if (!additionalComment.trim() || submitting) return;
-    
-    setSubmitting(true);
+  const handleCopyLink = () => {
+    const link = window.location.href;
+    navigator.clipboard.writeText(link);
+    setCopied(true);
+    setTimeout(() => setCopied(false), 2000);
+  };
+
+  const handleCopyComment = async () => {
     try {
-      await api.submitFeedback({
-        businessId: 'demo-business',
-        rating: rating,
-        comment: additionalComment,
-        name: '',
-        email: '',
-      });
-      setAdditionalComment('');
-      alert('Thank you for your additional feedback!');
-    } catch (error) {
-      console.error('Failed to submit comment:', error);
-      alert('Failed to submit comment. Please try again.');
-    } finally {
-      setSubmitting(false);
+      await navigator.clipboard.writeText(comment);
+      setCopied(true);
+      setTimeout(() => setCopied(false), 2000);
+    } catch (err) {
+      console.error('Failed to copy text:', err);
     }
   };
 
@@ -84,25 +92,20 @@ export function ThankYouPage() {
             Thank you for your feedback!
           </h1>
 
-          {/* Show comment and images if provided */}
-          {(comment || images.length > 0) && (
+          {/* Show images if provided */}
+          {images.length > 0 && (
             <div className="mb-6 p-3 bg-gray-50 rounded-lg border border-gray-200">
-              <p className="text-xs font-medium text-gray-700 mb-2">Your feedback:</p>
-              {comment && (
-                <p className="text-sm text-gray-600 mb-3">{comment}</p>
-              )}
-              {images.length > 0 && (
-                <div className="grid grid-cols-3 gap-2">
-                  {images.map((img: string, index: number) => (
-                    <img 
-                      key={index} 
-                      src={img} 
-                      alt={`Uploaded ${index + 1}`}
-                      className="w-full h-20 object-cover rounded-lg"
-                    />
-                  ))}
-                </div>
-              )}
+              <p className="text-xs font-medium text-gray-700 mb-2">Your photos:</p>
+              <div className="grid grid-cols-3 gap-2">
+                {images.map((img: string, index: number) => (
+                  <img 
+                    key={index} 
+                    src={img} 
+                    alt={`Uploaded ${index + 1}`}
+                    className="w-full h-20 object-cover rounded-lg"
+                  />
+                ))}
+              </div>
             </div>
           )}
 
@@ -128,6 +131,43 @@ export function ThankYouPage() {
             ))}
           </div>
 
+          {/* Copy Your Review Section - Only show if comment exists */}
+          {comment && (
+            <div className="mb-6">
+              <div className="bg-gradient-to-br from-gray-50 to-white rounded-xl border-2 border-gray-200 p-4 shadow-sm">
+                <div className="flex items-start justify-between mb-3">
+                  <div className="flex-1">
+                    
+                    <p className="text-xs text-gray-500"></p>
+                  </div>
+                </div>
+                
+                <div className="bg-white rounded-lg border border-gray-200 p-3 mb-3">
+                  <p className="text-sm text-gray-900 leading-relaxed whitespace-pre-wrap">
+                    {comment}
+                  </p>
+                </div>
+
+                <button
+                  onClick={handleCopyComment}
+                  className="w-full flex items-center justify-center gap-2 px-4 py-3 bg-black text-white rounded-lg hover:bg-gray-800 transition-all font-medium text-sm shadow-sm"
+                >
+                  {copied ? (
+                    <>
+                      <Check className="w-4 h-4" />
+                      <span>Copied!</span>
+                    </>
+                  ) : (
+                    <>
+                      <Copy className="w-4 h-4" />
+                      <span>Copy Review Text</span>
+                    </>
+                  )}
+                </button>
+              </div>
+            </div>
+          )}
+
           {/* Opt-In Button */}
           <div className="mb-8">
             <button
@@ -138,28 +178,6 @@ export function ThankYouPage() {
               <span className="text-sm font-semibold">
                 Join Our Newsletter & Rewards Program
               </span>
-            </button>
-          </div>
-
-          {/* Additional Comment Section */}
-          <div className="border-t border-gray-200 pt-6">
-            <h2 className="text-base font-semibold text-black mb-4 text-center">
-              Share Additional Comments (Optional)
-            </h2>
-            
-            <textarea
-              value={additionalComment}
-              onChange={(e) => setAdditionalComment(e.target.value)}
-              placeholder="What did you enjoy most? Any suggestions?"
-              rows={4}
-              className="w-full px-4 py-3 text-sm text-gray-900 bg-gray-50 border border-gray-200 rounded-xl focus:outline-none focus:border-black focus:ring-2 focus:ring-black/5 resize-none placeholder:text-gray-400 transition-all"
-            />
-            <button
-              onClick={handleSubmitComment}
-              disabled={submitting || !additionalComment.trim()}
-              className="w-full mt-3 bg-black text-white py-3.5 rounded-xl font-medium text-sm hover:bg-gray-900 transition-all disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:bg-black shadow-sm"
-            >
-              {submitting ? 'Submitting...' : 'Submit Additional Feedback'}
             </button>
           </div>
         </div>

@@ -10,18 +10,32 @@ import { SuggestionForm } from './components/SuggestionForm';
 import { LoginPage } from './components/LoginPage';
 import { OnboardingFlow } from './components/OnboardingFlow';
 import { Dashboard } from './components/Dashboard';
-import { HelpCenter } from './components/HelpCenter';
+import { DashboardLayout } from './components/dashboard/DashboardLayout';
 import { PricingPage } from './components/PricingPage';
 import { FeaturesPage } from './components/FeaturesPage';
 import { ContactUsPage } from './components/ContactUsPage';
+import { PrivacyPage } from './components/PrivacyPage';
+import { TermsOfServicePage } from './components/TermsOfServicePage';
+import { NotFoundPage } from './components/NotFoundPage';
+import { AddLocationPage } from './components/dashboard/AddLocationPage';
+import { EditLocationPage } from './components/dashboard/EditLocationPage';
+import { LocationStatsPage } from './components/dashboard/LocationStatsPage';
+import { CancelPlanPage } from './components/dashboard/CancelPlanPage';
+import { PlansPage } from './components/dashboard/PlansPage';
+import { ContactSupportPage } from './components/dashboard/ContactSupportPage';
 
 export const router = createBrowserRouter([
+  {
+    path: '/',
+    Component: HomePage,
+    errorElement: <NotFoundPage />,
+  },
   {
     path: '/home',
     Component: HomePage,
   },
   {
-    path: '/',
+    path: '/demo',
     Component: RatingPage,
   },
   {
@@ -62,11 +76,37 @@ export const router = createBrowserRouter([
   },
   {
     path: '/dashboard',
-    Component: Dashboard,
-  },
-  {
-    path: '/help',
-    Component: HelpCenter,
+    Component: DashboardLayout,
+    children: [
+      {
+        index: true,
+        Component: Dashboard,
+      },
+      {
+        path: 'locations/new',
+        Component: AddLocationPage,
+      },
+      {
+        path: 'locations/edit/:locationId',
+        Component: EditLocationPage,
+      },
+      {
+        path: 'locations/:locationId',
+        Component: LocationStatsPage,
+      },
+      {
+        path: 'plans',
+        Component: PlansPage,
+      },
+      {
+        path: 'cancel-plan',
+        Component: CancelPlanPage,
+      },
+      {
+        path: 'contact-support',
+        Component: ContactSupportPage,
+      },
+    ],
   },
   {
     path: '/pricing',
@@ -79,5 +119,21 @@ export const router = createBrowserRouter([
   {
     path: '/contact-us',
     Component: ContactUsPage,
+  },
+  {
+    path: '/privacy',
+    Component: PrivacyPage,
+  },
+  {
+    path: '/terms',
+    Component: TermsOfServicePage,
+  },
+  {
+    path: '/terms-of-service',
+    Component: TermsOfServicePage,
+  },
+  {
+    path: '*',
+    Component: NotFoundPage,
   },
 ]);

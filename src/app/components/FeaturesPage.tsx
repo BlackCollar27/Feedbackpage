@@ -170,7 +170,7 @@ export function FeaturesPage() {
       {/* Hero Section */}
       <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 md:py-16 lg:py-20 text-center">
         <div className="max-w-3xl mx-auto">
-          <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold text-slate-900 mb-4 md:mb-6 leading-tight">
+          <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl text-slate-900 mb-4 md:mb-6 leading-tight">
             Everything You Need to{' '}
             <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-600 to-purple-600">
               Protect Your Reputation
@@ -196,7 +196,7 @@ export function FeaturesPage() {
                 <div className="w-12 h-12 bg-slate-900 rounded-xl flex items-center justify-center mb-4">
                   <Icon className="w-6 h-6 text-white" />
                 </div>
-                <h3 className="text-xl font-bold text-slate-900 mb-3">
+                <h3 className="text-xl text-slate-900 mb-3">
                   {feature.title}
                 </h3>
                 <p className="text-slate-600 leading-relaxed">
@@ -211,7 +211,7 @@ export function FeaturesPage() {
       {/* CTA Section */}
       <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 md:py-24">
         <div className="bg-gradient-to-br from-slate-900 to-slate-800 rounded-3xl p-12 md:p-16 text-center">
-          <h2 className="text-3xl md:text-4xl font-bold text-white mb-4">
+          <h2 className="text-3xl md:text-4xl text-white mb-4">
             Ready to get started?
           </h2>
           <p className="text-xl text-slate-300 mb-8 max-w-2xl mx-auto">

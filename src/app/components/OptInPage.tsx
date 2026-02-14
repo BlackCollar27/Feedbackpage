@@ -1,8 +1,8 @@
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import { useNavigate } from 'react-router';
-import { ArrowLeft, Mail, Phone, CheckCircle2, User } from 'lucide-react';
 import logo from "figma:asset/522972406135c9ad603cf025748077edfe6ccf73.png";
 import { api } from '../api/client';
+import { Checkbox } from './ui/Checkbox';
 
 export function OptInPage() {
   const navigate = useNavigate();
@@ -113,18 +113,12 @@ export function OptInPage() {
           {/* Opt-In Form */}
           <div className="space-y-6">
             {/* Checkbox */}
-            <div className="flex items-start">
-              <input
-                type="checkbox"
-                id="opt-in-checkbox"
-                checked={optInChecked}
-                onChange={(e) => setOptInChecked(e.target.checked)}
-                className="w-5 h-5 mt-0.5 text-black bg-gray-100 border-gray-300 rounded focus:ring-black focus:ring-2"
-              />
-              <label htmlFor="opt-in-checkbox" className="ml-3 text-sm text-gray-700">
-                I agree to receive promotional emails, SMS messages, and exclusive offers. I understand I can unsubscribe at any time.
-              </label>
-            </div>
+            <Checkbox
+              id="opt-in-checkbox"
+              checked={optInChecked}
+              onChange={setOptInChecked}
+              label="I agree to receive promotional emails, SMS messages, and exclusive offers. I understand I can unsubscribe at any time."
+            />
 
             {/* Name Input */}
             <div>

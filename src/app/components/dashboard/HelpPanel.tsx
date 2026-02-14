@@ -1,5 +1,6 @@
 import { useState } from 'react';
-import { HelpCircle, ExternalLink, ChevronDown, ChevronUp, Search } from 'lucide-react';
+import { HelpCircle, ExternalLink, ChevronDown, ChevronUp } from 'lucide-react';
+import { useNavigate } from 'react-router';
 
 interface FAQItem {
   question: string;
@@ -8,8 +9,8 @@ interface FAQItem {
 }
 
 export function HelpPanel() {
-  const [searchQuery, setSearchQuery] = useState('');
   const [expandedIndex, setExpandedIndex] = useState<number | null>(null);
+  const navigate = useNavigate();
 
   const reviewPlatformGuides: FAQItem[] = [
     {
@@ -85,40 +86,18 @@ export function HelpPanel() {
     setExpandedIndex(expandedIndex === index ? null : index);
   };
 
-  const filteredReviewGuides = reviewPlatformGuides.filter(item =>
-    item.question.toLowerCase().includes(searchQuery.toLowerCase()) ||
-    item.answer.toLowerCase().includes(searchQuery.toLowerCase())
-  );
-
-  const filteredGeneralFAQs = generalFAQs.filter(item =>
-    item.question.toLowerCase().includes(searchQuery.toLowerCase()) ||
-    item.answer.toLowerCase().includes(searchQuery.toLowerCase())
-  );
-
   return (
-    <div className="space-y-6">
+    <div className="space-y-6 max-w-3xl mx-auto">
       <div>
-        <h2 className="text-2xl font-bold text-slate-900 mb-2">Help Center</h2>
-        <p className="text-slate-600">
+        <h2 className="text-2xl text-slate-900 mb-2 text-center">Help Center</h2>
+        <p className="text-slate-600 text-center">
           Find answers to common questions and learn how to get the most out of Feedback Page
         </p>
       </div>
 
-      {/* Search */}
-      <div className="relative">
-        <Search className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-slate-400" />
-        <input
-          type="text"
-          placeholder="Search for help..."
-          value={searchQuery}
-          onChange={(e) => setSearchQuery(e.target.value)}
-          className="w-full pl-12 pr-4 py-3 border border-slate-300 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
-        />
-      </div>
-
       {/* Review Platform Guides */}
       <div className="bg-white rounded-xl border border-slate-200 p-6">
-        <div className="flex items-center gap-2 mb-6">
+        <div className="flex items-center gap-2 mb-4">
           <ExternalLink className="w-5 h-5 text-blue-600" />
           <h3 className="text-lg font-semibold text-slate-900">
             Finding Your Review Platform Links
@@ -126,7 +105,7 @@ export function HelpPanel() {
         </div>
         
         <div className="space-y-3">
-          {filteredReviewGuides.map((item, index) => (
+          {reviewPlatformGuides.map((item, index) => (
             <div key={index} className="border border-slate-200 rounded-lg overflow-hidden">
               <button
                 onClick={() => toggleExpanded(index)}
@@ -134,9 +113,9 @@ export function HelpPanel() {
               >
                 <span className="font-medium text-slate-900">{item.question}</span>
                 {expandedIndex === index ? (
-                  <ChevronUp className="w-5 h-5 text-slate-400" />
+                  <ChevronUp className="w-5 h-5 text-slate-400 flex-shrink-0" />
                 ) : (
-                  <ChevronDown className="w-5 h-5 text-slate-400" />
+                  <ChevronDown className="w-5 h-5 text-slate-400 flex-shrink-0" />
                 )}
               </button>
               
@@ -171,7 +150,7 @@ export function HelpPanel() {
 
       {/* General FAQs */}
       <div className="bg-white rounded-xl border border-slate-200 p-6">
-        <div className="flex items-center gap-2 mb-6">
+        <div className="flex items-center gap-2 mb-4">
           <HelpCircle className="w-5 h-5 text-blue-600" />
           <h3 className="text-lg font-semibold text-slate-900">
             Frequently Asked Questions
@@ -179,7 +158,7 @@ export function HelpPanel() {
         </div>
         
         <div className="space-y-3">
-          {filteredGeneralFAQs.map((item, index) => {
+          {generalFAQs.map((item, index) => {
             const adjustedIndex = index + reviewPlatformGuides.length;
             return (
               <div key={index} className="border border-slate-200 rounded-lg overflow-hidden">
@@ -189,9 +168,9 @@ export function HelpPanel() {
                 >
                   <span className="font-medium text-slate-900">{item.question}</span>
                   {expandedIndex === adjustedIndex ? (
-                    <ChevronUp className="w-5 h-5 text-slate-400" />
+                    <ChevronUp className="w-5 h-5 text-slate-400 flex-shrink-0" />
                   ) : (
-                    <ChevronDown className="w-5 h-5 text-slate-400" />
+                    <ChevronDown className="w-5 h-5 text-slate-400 flex-shrink-0" />
                   )}
                 </button>
                 
@@ -212,14 +191,12 @@ export function HelpPanel() {
         <p className="text-slate-700 mb-4">
           Can't find what you're looking for? Our support team is here to help.
         </p>
-        <div className="flex gap-3">
-          <button className="px-4 py-2 bg-slate-900 text-white rounded-lg hover:bg-slate-800 transition-colors font-medium">
-            Contact Support
-          </button>
-          <button className="px-4 py-2 bg-white text-slate-900 rounded-lg hover:bg-slate-100 transition-colors font-medium border border-slate-200">
-            View Documentation
-          </button>
-        </div>
+        <button 
+          onClick={() => navigate('/dashboard/contact-support')}
+          className="px-4 py-2 bg-slate-900 text-white rounded-lg hover:bg-slate-800 transition-colors font-medium"
+        >
+          Contact Support
+        </button>
       </div>
     </div>
   );

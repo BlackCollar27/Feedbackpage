@@ -32,6 +32,32 @@ app.get("/make-server-6b2adf01/health", (c) => {
 });
 
 // Business routes
+app.post('/make-server-6b2adf01/business', async (c) => {
+  try {
+    const data = await c.req.json();
+    const { id, name, logoUrl, reviewPlatforms } = data;
+    
+    if (!id || !name) {
+      return c.json({ error: 'Business ID and name are required' }, 400);
+    }
+    
+    const business = {
+      id,
+      name,
+      logoUrl: logoUrl || null,
+      reviewPlatforms: reviewPlatforms || [],
+      createdAt: new Date().toISOString()
+    };
+    
+    await kv.set(`business:${id}`, business);
+    
+    return c.json(business);
+  } catch (error) {
+    console.error('Error creating business:', error);
+    return c.json({ error: 'Failed to create business' }, 500);
+  }
+});
+
 app.get('/make-server-6b2adf01/business/:id', async (c) => {
   try {
     const businessId = c.req.param('id');

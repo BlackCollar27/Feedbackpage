@@ -266,7 +266,7 @@ export function PricingPage() {
       {/* Pricing Section */}
       <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 md:py-24">
         <div className="text-center max-w-3xl mx-auto mb-12">
-          <h1 className="text-4xl md:text-5xl font-bold text-slate-900 mb-4">
+          <h1 className="text-4xl md:text-5xl text-slate-900 mb-4">
             Simple, transparent pricing
           </h1>
           <p className="text-xl text-slate-600 mb-8">
@@ -295,7 +295,7 @@ export function PricingPage() {
             >
               Yearly
               <span className="ml-2 text-xs bg-green-100 text-green-700 px-2 py-0.5 rounded-full">
-                Save 17%
+                2 Months Free
               </span>
             </button>
           </div>
@@ -332,11 +332,11 @@ export function PricingPage() {
                     <Icon className={`w-6 h-6 ${plan.highlighted ? 'text-white' : 'text-slate-700'}`} />
                   </div>
                   <div>
-                    <h3 className="text-xl font-bold text-slate-900">{plan.name}</h3>
+                    <h3 className="text-xl text-slate-900">{plan.name}</h3>
                   </div>
                 </div>
 
-                <p className="text-slate-600 text-sm mb-6">{plan.description}</p>
+                
 
                 <div className="mb-6">
                   {price !== null ? (

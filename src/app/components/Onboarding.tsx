@@ -1,12 +1,13 @@
 import { useState } from 'react';
 import { useNavigate, Link } from 'react-router';
-import { Check, ChevronRight, ChevronLeft, Eye, EyeOff, Menu, X } from 'lucide-react';
+import { Check, ChevronRight, ChevronLeft, Eye, EyeOff, Menu, X, Upload } from 'lucide-react';
 import { api } from '../api/client';
 import { useAuth } from '../contexts/AuthContext';
 import { createClient } from '@supabase/supabase-js';
 import { projectId, publicAnonKey } from '/utils/supabase/info';
 import { Footer } from './Footer';
 import logo from "figma:asset/522972406135c9ad603cf025748077edfe6ccf73.png";
+import { Checkbox } from './ui/Checkbox';
 
 interface OnboardingData {
   // Account info
@@ -15,12 +16,14 @@ interface OnboardingData {
   password: string;
   // Business info
   businessName: string;
+  logoFile: File | null;
   logoUrl: string;
   platforms: {
     google: { enabled: boolean; url: string };
     yelp: { enabled: boolean; url: string };
     facebook: { enabled: boolean; url: string };
     tripadvisor: { enabled: boolean; url: string };
+    custom: { enabled: boolean; url: string; name: string };
   };
 }
 
@@ -36,12 +39,14 @@ export function Onboarding() {
     email: '',
     password: '',
     businessName: '',
+    logoFile: null,
     logoUrl: '',
     platforms: {
       google: { enabled: false, url: '' },
       yelp: { enabled: false, url: '' },
       facebook: { enabled: false, url: '' },
-      tripadvisor: { enabled: false, url: '' }
+      tripadvisor: { enabled: false, url: '' },
+      custom: { enabled: false, url: '', name: '' }
     }
   });
 
@@ -81,9 +86,10 @@ export function Onboarding() {
           name: key === 'google' ? 'Google Reviews' : 
                 key === 'yelp' ? 'Yelp' :
                 key === 'facebook' ? 'Facebook' :
-                'TripAdvisor',
+                key === 'tripadvisor' ? 'TripAdvisor' :
+                platform.name,
           url: platform.url,
-          icon: key as 'google' | 'yelp' | 'facebook' | 'tripadvisor'
+          icon: key as 'google' | 'yelp' | 'facebook' | 'tripadvisor' | 'custom'
         }));
 
       const businessId = `business-${Date.now()}`; // Generate unique ID
@@ -123,7 +129,16 @@ export function Onboarding() {
     if (step === 2) return true; // Logo is optional
     if (step === 3) {
       // At least one platform must be enabled with a URL
-      return Object.values(data.platforms).some(p => p.enabled && p.url.trim().length > 0);
+      // Custom platform must have both name and URL
+      const standardPlatforms = Object.entries(data.platforms)
+        .filter(([key]) => key !== 'custom')
+        .some(([_, p]) => p.enabled && p.url.trim().length > 0);
+      
+      const customPlatform = data.platforms.custom.enabled && 
+        data.platforms.custom.url.trim().length > 0 && 
+        data.platforms.custom.name.trim().length > 0;
+      
+      return standardPlatforms || customPlatform;
     }
     return false;
   };
@@ -380,6 +395,18 @@ function Step1({ data, setData }: { data: OnboardingData; setData: (data: Onboar
 }
 
 function Step2({ data, setData }: { data: OnboardingData; setData: (data: OnboardingData) => void }) {
+  const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+    if (file) {
+      setData({ ...data, logoFile: file });
+      const reader = new FileReader();
+      reader.onloadend = () => {
+        setData({ ...data, logoUrl: reader.result as string });
+      };
+      reader.readAsDataURL(file);
+    }
+  };
+
   return (
     <div>
       <h2 className="text-xl md:text-2xl lg:text-3xl text-slate-900 mb-1.5 md:mb-2">
@@ -406,6 +433,38 @@ function Step2({ data, setData }: { data: OnboardingData; setData: (data: Onboar
         </p>
 
         {data.logoUrl && (
+          <div className="mt-4 md:mt-6 p-3 md:p-4 bg-slate-50 rounded-lg">
+            <p className="text-xs md:text-sm font-medium text-slate-700 mb-3">Preview:</p>
+            <div className="flex justify-center">
+              <img
+                src={data.logoUrl}
+                alt="Logo preview"
+                className="h-16 w-16 md:h-20 md:w-20 rounded-full object-cover border-2 border-white shadow-sm"
+                onError={(e) => {
+                  e.currentTarget.style.display = 'none';
+                }}
+              />
+            </div>
+          </div>
+        )}
+      </div>
+
+      <div className="mt-4 md:mt-6">
+        <label htmlFor="logoFile" className="block text-sm font-medium text-slate-700 mb-2">
+          Upload Logo <span className="text-slate-400">(optional)</span>
+        </label>
+        <input
+          type="file"
+          id="logoFile"
+          accept="image/*"
+          onChange={handleFileChange}
+          className="w-full px-3 md:px-4 py-2.5 md:py-3 rounded-lg border border-slate-300 focus:border-slate-900 focus:ring-2 focus:ring-slate-900 focus:ring-opacity-20 transition-colors outline-none text-base"
+        />
+        <p className="text-xs md:text-sm text-slate-500 mt-2">
+          Upload a logo file
+        </p>
+
+        {data.logoFile && (
           <div className="mt-4 md:mt-6 p-3 md:p-4 bg-slate-50 rounded-lg">
             <p className="text-xs md:text-sm font-medium text-slate-700 mb-3">Preview:</p>
             <div className="flex justify-center">
@@ -459,6 +518,19 @@ function Step3({ data, setData }: { data: OnboardingData; setData: (data: Onboar
     });
   };
 
+  const updateCustomName = (name: string) => {
+    setData({
+      ...data,
+      platforms: {
+        ...data.platforms,
+        custom: {
+          ...data.platforms.custom,
+          name
+        }
+      }
+    });
+  };
+
   return (
     <div>
       <h2 className="text-xl md:text-2xl lg:text-3xl text-slate-900 mb-1.5 md:mb-2">
@@ -474,12 +546,10 @@ function Step3({ data, setData }: { data: OnboardingData; setData: (data: Onboar
           return (
             <div key={key} className="border border-slate-200 rounded-lg p-3 md:p-4">
               <div className="flex items-center gap-2.5 md:gap-3 mb-2.5 md:mb-3">
-                <input
-                  type="checkbox"
+                <Checkbox
                   id={key}
                   checked={platform.enabled}
                   onChange={() => togglePlatform(key)}
-                  className="w-4 h-4 rounded border-slate-300 text-slate-900 focus:ring-slate-900"
                 />
                 <label htmlFor={key} className="text-sm md:text-base font-medium text-slate-900 cursor-pointer">
                   {label}
@@ -497,6 +567,37 @@ function Step3({ data, setData }: { data: OnboardingData; setData: (data: Onboar
             </div>
           );
         })}
+
+        <div className="border border-slate-200 rounded-lg p-3 md:p-4">
+          <div className="flex items-center gap-2.5 md:gap-3 mb-2.5 md:mb-3">
+            <Checkbox
+              id="custom"
+              checked={data.platforms.custom.enabled}
+              onChange={() => togglePlatform('custom')}
+            />
+            <label htmlFor="custom" className="text-sm md:text-base font-medium text-slate-900 cursor-pointer">
+              Custom Platform
+            </label>
+          </div>
+          {data.platforms.custom.enabled && (
+            <>
+              <input
+                type="text"
+                value={data.platforms.custom.name}
+                onChange={(e) => updateCustomName(e.target.value)}
+                placeholder="Platform Name"
+                className="w-full px-3 py-2 rounded-lg border border-slate-300 focus:border-slate-900 focus:ring-2 focus:ring-slate-900 focus:ring-opacity-20 transition-colors outline-none text-sm mb-2.5 md:mb-3"
+              />
+              <input
+                type="url"
+                value={data.platforms.custom.url}
+                onChange={(e) => updateUrl('custom', e.target.value)}
+                placeholder="https://example.com/reviews"
+                className="w-full px-3 py-2 rounded-lg border border-slate-300 focus:border-slate-900 focus:ring-2 focus:ring-slate-900 focus:ring-opacity-20 transition-colors outline-none text-sm"
+              />
+            </>
+          )}
+        </div>
       </div>
     </div>
   );

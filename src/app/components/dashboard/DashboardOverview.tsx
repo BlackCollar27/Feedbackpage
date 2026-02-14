@@ -65,10 +65,10 @@ export function DashboardOverview() {
 
   return (
     <div className="space-y-6">
-      <h2 className="text-2xl font-bold text-slate-900">Overview</h2>
+      <h2 className="text-2xl text-slate-900 text-center">Overview</h2>
 
-      {/* Stats Grid */}
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+      {/* Stats Grid - 2 columns on mobile, 2 on tablet, 4 on desktop */}
+      <div className="grid grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-6">
         <StatCard
           icon={MessageSquare}
           label="Total Feedback"
@@ -155,12 +155,12 @@ function StatCard({ icon: Icon, label, value, color }: StatCardProps) {
   };
 
   return (
-    <div className="bg-white rounded-xl border border-slate-200 p-6">
-      <div className={`w-12 h-12 rounded-lg ${colorClasses[color]} flex items-center justify-center mb-4`}>
-        <Icon className="w-6 h-6" />
+    <div className="bg-white rounded-xl border border-slate-200 p-4 sm:p-6">
+      <div className={`w-10 h-10 sm:w-12 sm:h-12 rounded-lg ${colorClasses[color]} flex items-center justify-center mb-3 sm:mb-4`}>
+        <Icon className="w-5 h-5 sm:w-6 sm:h-6" />
       </div>
-      <p className="text-sm text-slate-600 mb-1">{label}</p>
-      <p className="text-3xl font-bold text-slate-900">{value}</p>
+      <p className="text-xs sm:text-sm text-slate-600 mb-1">{label}</p>
+      <p className="text-2xl sm:text-3xl font-bold text-slate-900">{value}</p>
     </div>
   );
 }

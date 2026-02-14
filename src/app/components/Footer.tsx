@@ -54,11 +54,6 @@ export function Footer() {
                 </Link>
               </li>
               <li className="text-center sm:text-left">
-                <Link to="/help" className="hover:text-slate-900 transition-colors text-sm md:text-base">
-                  Help Center
-                </Link>
-              </li>
-              <li className="text-center sm:text-left">
                 <Link to="/" className="hover:text-slate-900 transition-colors text-sm md:text-base">
                   Demo
                 </Link>

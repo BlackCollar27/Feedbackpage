@@ -8,6 +8,7 @@ export function RatingPage() {
   const navigate = useNavigate();
   const [rating, setRating] = useState(0);
   const [hoveredRating, setHoveredRating] = useState(0);
+  const [comment, setComment] = useState('');
   const [isInitialized, setIsInitialized] = useState(false);
 
   // Initialize demo data when component mounts
@@ -49,22 +50,29 @@ export function RatingPage() {
       return;
     }
 
-    console.log('Submitting rating:', rating);
-
-    // Store rating in localStorage to ensure it persists
-    localStorage.setItem('feedbackRating', rating.toString());
+    console.log('Submitting rating:', rating, 'comment:', comment);
 
     if (rating >= 1 && rating <= 3) {
       console.log('LOW RATING - Navigating to feedback form');
-      navigate('/feedback', { 
+      // Use URL params as backup
+      const params = new URLSearchParams();
+      params.set('rating', rating.toString());
+      if (comment) params.set('comment', comment);
+      
+      navigate(`/feedback?${params.toString()}`, { 
         replace: false,
-        state: { rating } 
+        state: { rating, comment } 
       });
     } else if (rating >= 4 && rating <= 5) {
       console.log('HIGH RATING - Navigating to thank you page');
-      navigate('/thank-you', { 
+      // Use URL params as backup
+      const params = new URLSearchParams();
+      params.set('rating', rating.toString());
+      if (comment) params.set('comment', comment);
+      
+      navigate(`/thank-you?${params.toString()}`, { 
         replace: false,
-        state: { rating } 
+        state: { rating, comment } 
       });
     } else {
       console.log('Invalid rating:', rating);
@@ -123,6 +131,18 @@ export function RatingPage() {
                 />
               </button>
             ))}
+          </div>
+
+          {/* Comment Text Box */}
+          <div className="mb-6">
+            <textarea
+              value={comment}
+              onChange={(e) => setComment(e.target.value)}
+              placeholder="Share more about your experience... (optional)"
+              rows={4}
+              className="w-full px-4 py-3 border border-gray-300 rounded-xl resize-none focus:outline-none focus:ring-2 focus:ring-black focus:border-transparent transition-all text-gray-900 placeholder:text-gray-400"
+            />
+            
           </div>
 
           {/* Submit Button */}

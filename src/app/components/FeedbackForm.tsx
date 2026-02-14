@@ -1,27 +1,39 @@
 import { useState, useEffect } from 'react';
-import { useLocation, useNavigate } from 'react-router';
+import { useLocation, useNavigate, useSearchParams } from 'react-router';
 import { Star, Upload, X, ArrowLeft } from 'lucide-react';
 import logo from "figma:asset/522972406135c9ad603cf025748077edfe6ccf73.png";
 import { api } from '../api/client';
+import { Checkbox } from './ui/Checkbox';
 
 export function FeedbackForm() {
   const navigate = useNavigate();
   const location = useLocation();
+  const [searchParams] = useSearchParams();
   
-  // Try to get rating from location.state first, then from localStorage
+  // Try to get rating and comment from location.state first, then from URL params, then from localStorage
   const stateRating = location.state?.rating || 0;
+  const stateComment = location.state?.comment || '';
+  const urlRating = Number(searchParams.get('rating')) || 0;
+  const urlComment = searchParams.get('comment') || '';
   const localStorageRating = parseInt(localStorage.getItem('feedbackRating') || '0');
-  const rating = stateRating || localStorageRating;
+  const rating = stateRating || urlRating || localStorageRating;
+  const initialComment = stateComment || urlComment || '';
 
   console.log('=== FEEDBACK FORM LOADED ===');
   console.log('Location state:', location.state);
   console.log('State rating:', stateRating);
+  console.log('State comment:', stateComment);
+  console.log('URL rating:', urlRating);
+  console.log('URL comment:', urlComment);
   console.log('LocalStorage rating:', localStorageRating);
   console.log('Final rating:', rating);
+  console.log('Initial comment:', initialComment);
 
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
-  const [comment, setComment] = useState('');
+  const [phone, setPhone] = useState('');
+  const [comment, setComment] = useState(initialComment);
+  const [contactMe, setContactMe] = useState(false);
   const [submitting, setSubmitting] = useState(false);
 
   // Move the navigation check to useEffect to avoid setState during render
@@ -49,6 +61,7 @@ export function FeedbackForm() {
         rating,
         name: name || undefined,
         email: email || undefined,
+        phone: contactMe ? phone : undefined,
         comment,
         type: 'feedback'
       });
@@ -136,6 +149,28 @@ export function FeedbackForm() {
                 placeholder="your@email.com"
               />
             </div>
+
+            {/* Phone Input */}
+            <div>
+              <label className="block text-sm font-medium text-gray-700 mb-2">
+                Phone (optional)
+              </label>
+              <input
+                type="tel"
+                value={phone}
+                onChange={(e) => setPhone(e.target.value)}
+                className="w-full px-4 py-3 text-sm text-gray-900 bg-gray-50 border border-gray-200 rounded-xl focus:outline-none focus:border-black focus:ring-2 focus:ring-black/5 placeholder:text-gray-400 transition-all"
+                placeholder="Your phone number"
+              />
+            </div>
+
+            {/* Contact Me Checkbox */}
+            <Checkbox
+              id="contact-me"
+              checked={contactMe}
+              onChange={setContactMe}
+              label="I would like to be contacted to resolve this issue"
+            />
 
             {/* Submit Button */}
             <button

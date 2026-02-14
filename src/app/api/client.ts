@@ -10,6 +10,19 @@ const headers = {
 
 export const api = {
   // Business
+  async createBusiness(data: any) {
+    const response = await fetch(`${API_BASE}/business`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${publicAnonKey}`
+      },
+      body: JSON.stringify(data)
+    });
+    if (!response.ok) throw new Error('Failed to create business');
+    return response.json();
+  },
+
   async getBusiness(businessId: string) {
     const response = await fetch(`${API_BASE}/business/${businessId}`, {
       headers: { 'Authorization': `Bearer ${publicAnonKey}` }
@@ -164,7 +177,10 @@ export const api = {
   async getOptIns(businessId: string) {
     try {
       const response = await fetch(`${API_BASE}/business/${businessId}/opt-ins`, { headers });
-      if (!response.ok) throw new Error('Failed to fetch opt-ins');
+      if (!response.ok) {
+        console.error('Failed to fetch opt-ins:', response.statusText);
+        return [];
+      }
       const data = await response.json();
       return data.map((item: any) => ({
         ...item,

@@ -8,7 +8,6 @@ import { Footer } from './Footer';
 import logo from "figma:asset/522972406135c9ad603cf025748077edfe6ccf73.png";
 
 export function HelpCenter() {
-  const [searchQuery, setSearchQuery] = useState('');
   const [copiedLink, setCopiedLink] = useState(false);
 
   const copyToClipboard = (text: string) => {
@@ -146,21 +145,9 @@ export function HelpCenter() {
           <h1 className="text-4xl md:text-5xl font-bold mb-4">
             How can we help you?
           </h1>
-          <p className="text-xl text-slate-300 mb-8">
-            Search our knowledge base or browse popular topics below
+          <p className="text-xl text-slate-300">
+            Browse popular topics and helpful guides below
           </p>
-
-          {/* Search Bar */}
-          <div className="relative max-w-2xl mx-auto">
-            <Search className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-slate-400" />
-            <input
-              type="text"
-              placeholder="Search for help articles..."
-              value={searchQuery}
-              onChange={(e) => setSearchQuery(e.target.value)}
-              className="w-full pl-12 pr-4 py-4 rounded-xl border-0 focus:outline-none focus:ring-2 focus:ring-blue-500 text-slate-900"
-            />
-          </div>
         </div>
       </section>
 
