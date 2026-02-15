@@ -11,10 +11,10 @@ export function TermsOfServicePage() {
   return (
     <div className="min-h-screen bg-gradient-to-br from-slate-50 to-slate-100 flex flex-col">
       <SEO
-        title="Terms of Service - Usage Agreement & Guidelines"
+        title="Terms of Service"
         description="Read our terms of service to understand the rules and regulations for using Feedback Page. Learn about your rights and responsibilities."
         keywords="terms of service, user agreement, terms and conditions, service terms"
-        canonical="https://feedbackpage.com/terms"
+        canonical="https://feedback-page.com/terms"
       />
 
       {/* Header */}
@@ -300,7 +300,7 @@ export function TermsOfServicePage() {
               </p>
               <div className="bg-slate-50 rounded-lg p-4 border border-slate-200">
                 <p className="font-medium text-slate-900">Feedback Page Support</p>
-                <p className="text-slate-600">Email: legal@feedbackpage.com</p>
+                <p className="text-slate-600">Email: legal@feedback-page.com</p>
               </div>
             </section>
 

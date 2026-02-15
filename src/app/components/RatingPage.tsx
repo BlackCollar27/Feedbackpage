@@ -9,6 +9,7 @@ export function RatingPage() {
   const [hoveredRating, setHoveredRating] = useState(0);
   const [comment, setComment] = useState('');
   const [isInitialized, setIsInitialized] = useState(false);
+  const [business, setBusiness] = useState<{ logoUrl?: string; name?: string }>({});
 
   // Initialize demo data when component mounts
   useEffect(() => {
@@ -89,14 +90,22 @@ export function RatingPage() {
         <div className="w-full max-w-md">
           {/* Logo */}
           <div className="flex justify-center mb-6 mt-4">
-            <div className="w-24 h-24 rounded-full bg-gradient-to-br from-slate-900 to-slate-700 flex items-center justify-center">
-              <Store className="w-12 h-12 text-white" />
-            </div>
+            {business?.logoUrl ? (
+              <img 
+                src={business.logoUrl} 
+                alt={business.name} 
+                className="max-w-[200px] max-h-[200px] w-auto h-auto object-contain"
+              />
+            ) : (
+              <div className="w-24 h-24 rounded-full bg-gradient-to-br from-slate-900 to-slate-700 flex items-center justify-center">
+                <Store className="w-12 h-12 text-white" />
+              </div>
+            )}
           </div>
 
           {/* Business Name */}
           <h1 className="text-2xl sm:text-3xl font-semibold text-gray-900 text-center mb-3">
-            Your Business
+            {business?.name || 'Your Business'}
           </h1>
 
           {/* Subtitle */}

@@ -24,10 +24,10 @@ export function LandingPage() {
   return (
     <div className="min-h-screen bg-gradient-to-br from-slate-50 to-slate-100">
       <SEO
-        title="Turn Negative Feedback into Growth Opportunities"
+        title="Home"
         description="Capture negative customer experiences privately while directing happy customers to leave public reviews. Build your reputation intelligently with Feedback Page."
         keywords="customer feedback, online reviews, reputation management, feedback collection, review management, customer satisfaction"
-        canonical="https://feedbackpage.com"
+        canonical="https://feedback-page.com"
       />
 
       {/* Header */}

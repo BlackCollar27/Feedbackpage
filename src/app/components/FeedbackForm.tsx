@@ -34,6 +34,7 @@ export function FeedbackForm() {
   const [comment, setComment] = useState(initialComment);
   const [contactMe, setContactMe] = useState(false);
   const [submitting, setSubmitting] = useState(false);
+  const [business, setBusiness] = useState<{ logoUrl?: string; name?: string }>({});
 
   // Move the navigation check to useEffect to avoid setState during render
   useEffect(() => {
@@ -97,14 +98,22 @@ export function FeedbackForm() {
         <div className="w-full max-w-md">
           {/* Logo */}
           <div className="flex justify-center mb-6 mt-4">
-            <div className="w-24 h-24 rounded-full bg-gradient-to-br from-slate-900 to-slate-700 flex items-center justify-center">
-              <Store className="w-12 h-12 text-white" />
-            </div>
+            {business?.logoUrl ? (
+              <img 
+                src={business.logoUrl} 
+                alt={business.name} 
+                className="max-w-[200px] max-h-[200px] w-auto h-auto object-contain"
+              />
+            ) : (
+              <div className="w-24 h-24 rounded-full bg-gradient-to-br from-slate-900 to-slate-700 flex items-center justify-center">
+                <Store className="w-12 h-12 text-white" />
+              </div>
+            )}
           </div>
 
           {/* Business Name */}
           <h1 className="text-2xl sm:text-3xl font-semibold text-gray-900 text-center mb-8">
-            Your Business
+            {business?.name || 'Your Business'}
           </h1>
 
           <form onSubmit={handleSubmit} className="space-y-5">

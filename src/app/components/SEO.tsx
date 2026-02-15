@@ -13,12 +13,12 @@ export function SEO({
   title, 
   description, 
   keywords,
-  ogImage = 'https://feedbackpage.com/og-image.png',
+  ogImage = 'https://feedback-page.com/og-image.png',
   ogType = 'website',
   canonical
 }: SEOProps) {
   const fullTitle = `${title} | Feedback Page`;
-  const siteUrl = 'https://feedbackpage.com';
+  const siteUrl = 'https://feedback-page.com';
   const canonicalUrl = canonical || siteUrl;
 
   return (

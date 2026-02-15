@@ -84,10 +84,10 @@ export function FeaturesPage() {
   return (
     <div className="min-h-screen bg-gradient-to-br from-slate-50 to-slate-100">
       <SEO
-        title="Features - Comprehensive Feedback Management Tools"
+        title="Features - Everything You Need to Manage Customer Feedback"
         description="Mobile-first design, custom branding, multi-platform integration, analytics dashboard, CSV exports, and more. Everything you need to manage customer feedback."
         keywords="feedback features, review management tools, customer feedback software, analytics dashboard"
-        canonical="https://feedbackpage.com/features"
+        canonical="https://feedback-page.com/features"
       />
 
       {/* Header */}

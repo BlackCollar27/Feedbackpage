@@ -9,4 +9,4 @@ Disallow: /login
 Disallow: /onboarding
 
 # Sitemap location
-Sitemap: https://feedbackpage.com/sitemap.xml
+Sitemap: https://feedback-page.com/sitemap.xml

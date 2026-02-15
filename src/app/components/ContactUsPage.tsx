@@ -55,10 +55,10 @@ export function ContactUsPage() {
   return (
     <div className="min-h-screen bg-gradient-to-br from-slate-50 to-slate-100">
       <SEO
-        title="Contact Us - Get in Touch with Our Team"
+        title="Contact Us - Get in Touch"
         description="Have questions about Feedback Page? Contact our support team for help with your account, features, or general inquiries. We're here to help."
         keywords="contact support, customer service, help center, feedback page support"
-        canonical="https://feedbackpage.com/contact-us"
+        canonical="https://feedback-page.com/contact-us"
       />
 
       {/* Header */}
@@ -208,10 +208,10 @@ export function ContactUsPage() {
                 <div>
                   <h3 className="text-sm font-semibold text-black mb-1">Email Us</h3>
                   <a 
-                    href="mailto:support@feedbackpage.com" 
+                    href="mailto:support@feedback-page.com" 
                     className="text-sm text-gray-600 hover:text-black transition-colors"
                   >
-                    support@feedbackpage.com
+                    support@feedback-page.com
                   </a>
                 </div>
               </div>

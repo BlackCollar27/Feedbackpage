@@ -26,7 +26,7 @@ export function AdminLoginPage() {
       // const data = await response.json();
       
       // Mock authentication - remove this in production
-      if (email === 'admin@feedbackpage.com' && password === 'admin') {
+      if (email === 'admin@feedback-page.com' && password === 'admin') {
         // Store admin token
         localStorage.setItem('adminToken', 'mock-admin-token');
         navigate('/admin');
@@ -77,7 +77,7 @@ export function AdminLoginPage() {
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
                 required
-                placeholder="admin@feedbackpage.com"
+                placeholder="admin@feedback-page.com"
                 className="w-full px-4 py-3 border border-slate-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-slate-900"
               />
             </div>

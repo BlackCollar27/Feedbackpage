@@ -180,10 +180,10 @@ export function ContactSupportPage() {
         </div>
         <h3 className="text-sm font-semibold text-black mb-2">Email Support</h3>
         <a 
-          href="mailto:support@feedbackpage.com" 
+          href="mailto:support@feedback-page.com" 
           className="text-sm text-gray-600 hover:text-black transition-colors"
         >
-          support@feedbackpage.com
+          support@feedback-page.com
         </a>
       </div>
 

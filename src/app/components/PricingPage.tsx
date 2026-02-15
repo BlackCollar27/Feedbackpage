@@ -127,7 +127,7 @@ export function PricingPage() {
         title="Pricing Plans - Choose Your Perfect Plan"
         description="Flexible pricing for businesses of all sizes. Start with 1 location or scale to unlimited. Save with yearly billing. Free trial available."
         keywords="feedback pricing, review management pricing, business plans, subscription plans"
-        canonical="https://feedbackpage.com/pricing"
+        canonical="https://feedback-page.com/pricing"
       />
 
       {/* Header */}

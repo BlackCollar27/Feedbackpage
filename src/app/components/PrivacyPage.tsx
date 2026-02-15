@@ -11,10 +11,10 @@ export function PrivacyPage() {
   return (
     <div className="min-h-screen bg-gradient-to-br from-slate-50 to-slate-100 flex flex-col">
       <SEO
-        title="Privacy Policy - Your Data Protection Rights"
+        title="Privacy Policy"
         description="Read our privacy policy to understand how we collect, use, and protect your personal information. Your privacy is important to us."
         keywords="privacy policy, data protection, user privacy, GDPR compliance"
-        canonical="https://feedbackpage.com/privacy"
+        canonical="https://feedback-page.com/privacy"
       />
 
       {/* Header */}
@@ -220,7 +220,7 @@ export function PrivacyPage() {
               </p>
               <div className="bg-slate-50 rounded-lg p-4 border border-slate-200">
                 <p className="font-medium text-slate-900">Feedback Page Support</p>
-                <p className="text-slate-600">Email: privacy@feedbackpage.com</p>
+                <p className="text-slate-600">Email: privacy@feedback-page.com</p>
               </div>
             </section>
           </div>

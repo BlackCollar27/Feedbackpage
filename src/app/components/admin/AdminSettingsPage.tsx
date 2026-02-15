@@ -47,7 +47,7 @@ interface SystemSettings {
 export function AdminSettingsPage() {
   const [settings, setSettings] = useState<SystemSettings>({
     siteName: 'Feedback Page',
-    supportEmail: 'support@feedbackpage.com',
+    supportEmail: 'support@feedback-page.com',
     maxLocationsPerUser: 100,
     enableUserRegistration: true,
     enableEmailVerification: false,

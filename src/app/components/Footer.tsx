@@ -113,11 +113,11 @@ export function Footer() {
             }`}>
               <div className="flex flex-col gap-3 items-center sm:items-start">
                 <a 
-                  href="mailto:support@feedbackpage.com" 
+                  href="mailto:support@feedback-page.com" 
                   className="flex items-center gap-2 text-sm md:text-base hover:text-slate-900 transition-colors"
                 >
                   <Mail className="w-4 h-4" />
-                  <span className="break-all sm:break-normal">support@feedbackpage.com</span>
+                  <span className="break-all sm:break-normal">support@feedback-page.com</span>
                 </a>
                 <Link
                   to="/contact-us"

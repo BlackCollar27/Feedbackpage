@@ -93,7 +93,7 @@ export function AdminLocationDetail() {
         phoneNumber: '+1 (555) 123-4567',
         website: 'https://example.com',
         qrCodeUrl: 'https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=example',
-        formUrl: `https://feedbackpage.com/f/${id}`,
+        formUrl: `https://feedback-page.com/f/${id}`,
       };
 
       setLocation(mockLocation);
