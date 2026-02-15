@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router';
+import { ArrowLeft, User, Mail, Phone, CheckCircle2 } from 'lucide-react';
 import logo from "figma:asset/522972406135c9ad603cf025748077edfe6ccf73.png";
 import { api } from '../api/client';
 import { Checkbox } from './ui/Checkbox';
@@ -39,7 +40,7 @@ export function OptInPage() {
         {/* Back Button */}
         <div className="absolute top-4 left-4 sm:top-6 sm:left-6">
           <button
-            onClick={() => navigate('/home')}
+            onClick={() => navigate('/')}
             className="flex items-center gap-2 text-gray-600 hover:text-gray-900 transition-colors"
           >
             <ArrowLeft className="w-4 h-4 sm:w-5 sm:h-5" />
@@ -70,7 +71,7 @@ export function OptInPage() {
             </p>
 
             <button
-              onClick={() => navigate('/home')}
+              onClick={() => navigate('/')}
               className="bg-black text-white px-8 py-4 rounded-xl font-medium text-base hover:bg-gray-900 transition-all shadow-sm"
             >
               Return to Home
