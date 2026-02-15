@@ -13,6 +13,7 @@ import { Dashboard } from './components/Dashboard';
 import { DashboardLayout } from './components/dashboard/DashboardLayout';
 import { PricingPage } from './components/PricingPage';
 import { FeaturesPage } from './components/FeaturesPage';
+import { HowItWorksPage } from './components/HowItWorksPage';
 import { ContactUsPage } from './components/ContactUsPage';
 import { PrivacyPage } from './components/PrivacyPage';
 import { TermsOfServicePage } from './components/TermsOfServicePage';
@@ -121,6 +122,10 @@ export const router = createBrowserRouter([
   {
     path: '/features',
     Component: FeaturesPage,
+  },
+  {
+    path: '/how-it-works',
+    Component: HowItWorksPage,
   },
   {
     path: '/contact-us',

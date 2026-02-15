@@ -1,7 +1,6 @@
 import { useState, useEffect } from 'react';
 import { useLocation, useNavigate, Link, useSearchParams } from 'react-router';
-import { Star, ExternalLink, CheckCircle2, ArrowLeft, Gift, Copy, Check } from 'lucide-react';
-import logo from "figma:asset/522972406135c9ad603cf025748077edfe6ccf73.png";
+import { Star, ExternalLink, CheckCircle2, ArrowLeft, Gift, Copy, Check, Store } from 'lucide-react';
 import { api } from '../api/client';
 
 export function ThankYouPage() {
@@ -65,7 +64,7 @@ export function ThankYouPage() {
       {/* Back to Home Button - Fixed to top-left */}
       <div className="absolute top-3 left-3 sm:top-4 sm:left-4 z-10">
         <button
-          onClick={() => navigate('/home')}
+          onClick={() => navigate('/')}
           className="flex items-center gap-1.5 text-gray-600 hover:text-gray-900 transition-colors"
         >
           <ArrowLeft className="w-4 h-4" />
@@ -78,7 +77,9 @@ export function ThankYouPage() {
         <div className="w-full max-w-md">
           {/* Logo */}
           <div className="flex justify-center mb-6 mt-4">
-            <img src={logo} alt="Logo" className="h-24" />
+            <div className="w-24 h-24 rounded-full bg-gradient-to-br from-slate-900 to-slate-700 flex items-center justify-center">
+              <Store className="w-12 h-12 text-white" />
+            </div>
           </div>
 
           {/* Success Icon */}
