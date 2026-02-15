@@ -149,7 +149,7 @@ export function LoginPage() {
         <div className="w-full max-w-md">
           {/* Logo */}
           <div className="text-center mb-8">
-            <h1 className="text-2xl md:text-3xl font-bold text-slate-900 mb-2">
+            <h1 className="text-2xl md:text-3xl text-slate-900 mb-2">
               {isSignUp ? 'Create your account' : 'Welcome back'}
             </h1>
             <p className="text-slate-600">
@@ -233,7 +233,7 @@ export function LoginPage() {
               <button
                 type="submit"
                 disabled={loading}
-                className="w-full bg-blue-600 text-white py-3 rounded-lg font-semibold hover:bg-blue-700 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+                className="w-full bg-black text-white py-3 rounded-lg font-semibold hover:bg-gray-800 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
               >
                 {loading ? 'Please wait...' : (isSignUp ? 'Create account' : 'Sign in')}
               </button>
