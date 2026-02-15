@@ -22,7 +22,7 @@ export function Footer() {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 md:py-16">
         {/* Logo Section */}
         <div className="mb-8 md:mb-12 flex justify-center md:justify-start">
-          <Link to="/home">
+          <Link to="/">
             <img 
               src={logo} 
               alt="Feedback Page" 
@@ -78,7 +78,7 @@ export function Footer() {
               isSectionOpen('company') ? 'max-h-40 opacity-100' : 'max-h-0 opacity-0'
             }`}>
               <li className="text-center sm:text-left">
-                <Link to="/home" className="hover:text-slate-900 transition-colors text-sm md:text-base">
+                <Link to="/" className="hover:text-slate-900 transition-colors text-sm md:text-base">
                   About
                 </Link>
               </li>

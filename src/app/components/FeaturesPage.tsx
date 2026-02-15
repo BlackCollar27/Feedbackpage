@@ -244,7 +244,7 @@ export function FeaturesPage() {
               to="/onboarding"
               className="px-8 py-4 text-lg font-semibold text-slate-900 bg-white rounded-xl hover:bg-slate-100 transition-colors shadow-xl inline-block"
             >
-              Get Started Free
+              Start 30-Day Free Trial
             </Link>
             <Link
               to="/pricing"

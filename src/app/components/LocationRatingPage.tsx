@@ -84,7 +84,7 @@ export function LocationRatingPage() {
       <div className="w-full max-w-2xl">
         {/* Logo */}
         <div className="text-center mb-8 md:mb-12">
-          <Link to="/home" className="inline-block">
+          <Link to="/" className="inline-block">
             <img 
               src={logo} 
               alt="Feedback Page" 

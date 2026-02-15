@@ -41,7 +41,7 @@ export function SubmittedPage() {
       <div className="w-full max-w-xl">
         {/* Logo */}
         <div className="text-center mb-8 md:mb-10">
-          <Link to="/home" className="inline-block">
+          <Link to="/" className="inline-block">
             <img 
               src={logo} 
               alt="Feedback Page" 

@@ -127,7 +127,7 @@ export function LandingPage() {
       <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 md:py-16 lg:py-20 text-center">
         <div className="max-w-3xl mx-auto">
           <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl text-slate-900 mb-4 md:mb-6 leading-tight px-4">Turn Negative Feedback into <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-600 to-purple-600">Positive Relationships</span></h1>
-          <p className="text-base md:text-lg lg:text-xl text-slate-600 mb-6 md:mb-8 px-4">
+          <p className="text-lg md:text-xl text-slate-600 mb-8 max-w-3xl mx-auto px-4">
             Capture unhappy customer experiences privately while directing satisfied customers to leave public reviews. 
             Protect your reputation and improve your business.
           </p>
@@ -136,7 +136,7 @@ export function LandingPage() {
               onClick={() => navigate(user ? '/dashboard' : '/onboarding')}
               className="px-6 md:px-8 py-3 md:py-4 bg-slate-900 text-white rounded-xl font-semibold text-base md:text-lg hover:bg-slate-800 transition-all shadow-lg hover:shadow-xl"
             >
-              {user ? 'Go to Dashboard' : 'Get Started Free'}
+              {user ? 'Go to Dashboard' : 'Start 30-Day Free Trial'}
             </button>
             <button
               onClick={() => navigate('/demo')}
@@ -145,6 +145,9 @@ export function LandingPage() {
               View Demo
             </button>
           </div>
+          <p className="text-sm text-slate-500 mt-4 px-4">
+            No credit card required • Cancel anytime
+          </p>
         </div>
       </section>
 
@@ -160,12 +163,8 @@ export function LandingPage() {
             </p>
           </div>
 
-          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+          <div className="grid md:grid-cols-3 gap-6 mb-8">
             {[
-              {
-                title: 'Mobile-First Design',
-                description: 'Beautiful, responsive pages that work perfectly on any device'
-              },
               {
                 title: 'Custom Branding',
                 description: 'Add your logo and business name to build trust'
@@ -177,14 +176,6 @@ export function LandingPage() {
               {
                 title: 'Dashboard Analytics',
                 description: 'View all feedback and track your average rating'
-              },
-              {
-                title: 'Export Data',
-                description: 'Download all feedback as CSV for further analysis'
-              },
-              {
-                title: 'Suggestion Box',
-                description: 'Let happy customers share ideas for improvement too'
               }
             ].map((feature, index) => (
               <div key={index} className="p-6 border border-slate-200 rounded-xl hover:border-slate-300 transition-colors">
@@ -192,6 +183,15 @@ export function LandingPage() {
                 <p className="text-slate-600 text-sm">{feature.description}</p>
               </div>
             ))}
+          </div>
+
+          <div className="text-center">
+            <button
+              onClick={() => navigate('/features')}
+              className="px-6 py-3 text-slate-900 border-2 border-slate-300 rounded-xl font-semibold hover:border-slate-400 transition-all"
+            >
+              View All Features
+            </button>
           </div>
         </div>
       </section>
@@ -203,13 +203,13 @@ export function LandingPage() {
             Ready to improve your reputation?
           </h2>
           <p className="text-xl text-slate-300 mb-8 max-w-2xl mx-auto">
-            Set up your Feedback Page in under 2 minutes. No credit card required.
+            Start your 30-day free trial today. No credit card required.
           </p>
           <button
             onClick={() => navigate('/onboarding')}
             className="px-8 py-4 text-lg font-medium text-slate-900 bg-white rounded-xl hover:bg-slate-100 transition-colors shadow-xl"
           >
-            Get Started Free
+            Start 30-Day Free Trial
           </button>
         </div>
       </section>

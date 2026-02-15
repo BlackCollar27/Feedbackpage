@@ -150,7 +150,7 @@ export function Onboarding() {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-3 md:py-4">
           <div className="flex items-center justify-between">
             <div className="flex-1 flex justify-center md:justify-start">
-              <Link to="/home">
+              <Link to="/">
                 <img 
                   src={logo} 
                   alt="Feedback Page" 
@@ -162,7 +162,7 @@ export function Onboarding() {
             {/* Desktop Navigation */}
             <div className="hidden md:flex items-center gap-2 md:gap-3">
               <Link
-                to="/home"
+                to="/"
                 className="text-xs md:text-sm font-medium text-slate-600 hover:text-slate-900 transition-colors px-2 md:px-3 py-1.5 md:py-2"
               >
                 Home
@@ -201,7 +201,7 @@ export function Onboarding() {
             <div className="md:hidden mt-4 pb-4 border-t border-slate-200 pt-4">
               <nav className="flex flex-col space-y-2">
                 <Link
-                  to="/home"
+                  to="/"
                   onClick={() => setMobileMenuOpen(false)}
                   className="px-4 py-2 text-sm font-medium text-slate-600 hover:text-slate-900 hover:bg-slate-50 rounded-lg transition-colors"
                 >
