@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { useNavigate, Link } from 'react-router';
 import { useAuth } from '../contexts/AuthContext';
 import { Check, Zap, Crown, Building2, Menu, X } from 'lucide-react';
@@ -7,12 +7,119 @@ import { Footer } from './Footer';
 import { SEO } from './SEO';
 import logo from "figma:asset/522972406135c9ad603cf025748077edfe6ccf73.png";
 
+const plans = [
+  {
+    id: 'starter',
+    name: 'Starter',
+    icon: Zap,
+    price: { monthly: 29, yearly: 297 },
+    cta: 'Start Free Trial',
+    highlighted: false,
+    features: [
+      '1 location',
+      'Unlimited feedback',
+      'Advanced analytics',
+      'Priority email support',
+      'Custom branding',
+      'CSV export'
+    ]
+  },
+  {
+    id: 'pro',
+    name: 'Pro',
+    icon: Crown,
+    price: { monthly: 59, yearly: 597 },
+    cta: 'Start Free Trial',
+    highlighted: true,
+    features: [
+      'Up to 5 locations',
+      'Unlimited feedback',
+      'Advanced analytics',
+      'Priority support',
+      'Custom branding',
+      'CSV export'
+    ]
+  },
+  {
+    id: 'business',
+    name: 'Business',
+    icon: Building2,
+    price: { monthly: 99, yearly: 997 },
+    cta: 'Start Free Trial',
+    highlighted: false,
+    features: [
+      'Up to 15 locations',
+      'Unlimited feedback',
+      'Advanced analytics',
+      'Priority support',
+      'Custom branding',
+      'CSV export',
+      'White label options'
+    ]
+  },
+  {
+    id: 'enterprise',
+    name: 'Enterprise',
+    icon: Building2,
+    price: { monthly: null, yearly: null },
+    cta: 'Contact Sales',
+    highlighted: false,
+    features: [
+      'Unlimited locations',
+      'Unlimited feedback',
+      'Advanced analytics',
+      'Dedicated support',
+      'Custom branding',
+      'CSV export',
+      'White label options'
+    ]
+  }
+];
+
 export function PricingPage() {
   const navigate = useNavigate();
   const { user } = useAuth();
   const [loading, setLoading] = useState<string | null>(null);
   const [billingPeriod, setBillingPeriod] = useState<'monthly' | 'yearly'>('monthly');
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const [isScrolled, setIsScrolled] = useState(false);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      setIsScrolled(window.scrollY > 10);
+    };
+
+    window.addEventListener('scroll', handleScroll);
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
+
+  const handleSelectPlan = async (planId: string) => {
+    // Handle enterprise plan
+    if (planId === 'enterprise') {
+      navigate('/contact-us');
+      return;
+    }
+
+    // Handle paid plans - redirect to login/onboarding if not logged in
+    if (!user) {
+      navigate('/onboarding');
+      return;
+    }
+
+    // If logged in, proceed with checkout
+    setLoading(planId);
+    try {
+      // This would create a Stripe checkout session in production
+      // For now, just navigate to dashboard
+      setTimeout(() => {
+        setLoading(null);
+        navigate('/dashboard');
+      }, 1000);
+    } catch (error) {
+      console.error('Error selecting plan:', error);
+      setLoading(null);
+    }
+  };
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-slate-50 to-slate-100">
@@ -24,11 +131,15 @@ export function PricingPage() {
       />
 
       {/* Header */}
-      <header className="border-b border-slate-200 bg-white/80 backdrop-blur-sm sticky top-0 z-50">
+      <header className={`sticky top-0 z-50 transition-all duration-300 ${
+        isScrolled 
+          ? 'bg-white/95 backdrop-blur-sm border-b border-slate-200 shadow-sm' 
+          : 'bg-transparent'
+      }`}>
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-3 md:py-4">
           <div className="flex items-center justify-between">
             <div className="flex-1 flex justify-center md:justify-start">
-              <Link to="/home" className="flex items-center gap-2">
+              <Link to="/" className="flex items-center gap-2">
                 <img 
                   src={logo} 
                   alt="Feedback Page" 
@@ -40,7 +151,7 @@ export function PricingPage() {
             {/* Desktop Navigation */}
             <div className="hidden md:flex items-center gap-2 md:gap-3">
               <Link
-                to="/home"
+                to="/"
                 className="text-xs md:text-sm font-medium text-slate-600 hover:text-slate-900 transition-colors px-2 md:px-3 py-1.5 md:py-2"
               >
                 Home
@@ -88,7 +199,7 @@ export function PricingPage() {
             <div className="md:hidden mt-4 pb-4 border-t border-slate-200 pt-4">
               <nav className="flex flex-col space-y-2">
                 <Link
-                  to="/home"
+                  to="/"
                   onClick={() => setMobileMenuOpen(false)}
                   className="px-4 py-2 text-sm font-medium text-slate-600 hover:text-slate-900 hover:bg-slate-50 rounded-lg transition-colors"
                 >
@@ -216,9 +327,7 @@ export function PricingPage() {
                         </span>
                       </div>
                       {billingPeriod === 'yearly' && price > 0 && (
-                        <p className="text-sm text-slate-500 mt-1">
-                          ${(yearlyPrice / 12).toFixed(0)}/month billed annually
-                        </p>
+                        null
                       )}
                     </>
                   ) : (

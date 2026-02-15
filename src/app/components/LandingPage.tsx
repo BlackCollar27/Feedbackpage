@@ -1,7 +1,7 @@
 import { useNavigate, Link } from 'react-router';
 import { Star, MessageSquare, ExternalLink, Sparkles, Menu, X } from 'lucide-react';
 import { useAuth } from '../contexts/AuthContext';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { Footer } from './Footer';
 import { SEO } from './SEO';
 import logo from "figma:asset/522972406135c9ad603cf025748077edfe6ccf73.png";
@@ -10,6 +10,16 @@ export function LandingPage() {
   const navigate = useNavigate();
   const { user } = useAuth();
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const [isScrolled, setIsScrolled] = useState(false);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      setIsScrolled(window.scrollY > 10);
+    };
+
+    window.addEventListener('scroll', handleScroll);
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-slate-50 to-slate-100">
@@ -21,11 +31,15 @@ export function LandingPage() {
       />
 
       {/* Header */}
-      <header className="border-b border-slate-200 bg-white/80 backdrop-blur-sm sticky top-0 z-50">
+      <header className={`sticky top-0 z-50 transition-all duration-300 ${
+        isScrolled 
+          ? 'bg-white/95 backdrop-blur-sm border-b border-slate-200 shadow-sm' 
+          : 'bg-transparent'
+      }`}>
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-3 md:py-4">
           <div className="flex items-center justify-between">
             <div className="flex-1 flex justify-center md:justify-start">
-              <Link to="/home">
+              <Link to="/">
                 <img 
                   src={logo} 
                   alt="Feedback Page" 
@@ -37,7 +51,7 @@ export function LandingPage() {
             {/* Desktop Navigation */}
             <div className="hidden md:flex items-center gap-2 md:gap-3">
               <Link
-                to="/home"
+                to="/"
                 className="text-xs md:text-sm font-medium text-slate-600 hover:text-slate-900 transition-colors px-2 md:px-3 py-1.5 md:py-2"
               >
                 Home
@@ -76,7 +90,7 @@ export function LandingPage() {
             <div className="md:hidden mt-4 pb-4 border-t border-slate-200 pt-4">
               <nav className="flex flex-col space-y-2">
                 <Link
-                  to="/home"
+                  to="/"
                   onClick={() => setMobileMenuOpen(false)}
                   className="px-4 py-2 text-sm font-medium text-slate-600 hover:text-slate-900 hover:bg-slate-50 rounded-lg transition-colors"
                 >
