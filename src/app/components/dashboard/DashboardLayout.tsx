@@ -1,13 +1,38 @@
 import { useState } from 'react';
-import { useNavigate, Outlet } from 'react-router';
+import { useNavigate, Outlet, useLocation } from 'react-router';
 import { LayoutDashboard, MessageSquare, LogOut, Menu, X, MapPin, CreditCard, Gift, HelpCircle } from 'lucide-react';
 import { useAuth } from '../../contexts/AuthContext';
 import logo from "figma:asset/522972406135c9ad603cf025748077edfe6ccf73.png";
+import { TrialBanner } from './TrialBanner';
 
 export function DashboardLayout() {
   const navigate = useNavigate();
+  const location = useLocation();
   const { user, signOut } = useAuth();
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+
+  // Mock trial data - In production, this would come from your backend/database
+  // This simulates a user who started their trial and has X days remaining
+  const trialStartDate = new Date('2026-02-01'); // Example trial start
+  const trialEndDate = new Date(trialStartDate);
+  trialEndDate.setDate(trialEndDate.getDate() + 30); // 30-day trial
+  
+  const today = new Date();
+  const daysRemaining = Math.max(0, Math.ceil((trialEndDate.getTime() - today.getTime()) / (1000 * 60 * 60 * 24)));
+  const isTrialActive = daysRemaining > 0;
+  const hasPaymentMethod = false; // Mock - would come from backend
+  
+  const showTrialBanner = isTrialActive && !hasPaymentMethod && daysRemaining <= 15;
+  
+  // Redirect to trial expired page if trial ended and no payment method
+  // Allow access to certain pages even when trial expired
+  const allowedPathsWhenExpired = ['/dashboard/trial-expired', '/dashboard/plans', '/dashboard/contact-support'];
+  const shouldRedirectToTrialExpired = !isTrialActive && !hasPaymentMethod && 
+    !allowedPathsWhenExpired.some(path => location.pathname === path);
+  
+  if (shouldRedirectToTrialExpired && location.pathname !== '/dashboard/trial-expired') {
+    navigate('/dashboard/trial-expired', { replace: true });
+  }
 
   const handleSignOut = async () => {
     await signOut();
@@ -116,6 +141,7 @@ export function DashboardLayout() {
 
         {/* Main Content */}
         <main className="flex-1 p-4 lg:p-8 overflow-y-auto">
+          {showTrialBanner && <TrialBanner daysRemaining={daysRemaining} />}
           <Outlet />
           
           {/* Footer */}

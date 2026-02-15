@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router';
-import { AlertTriangle, Check } from 'lucide-react';
+import { AlertTriangle, Check, CheckCircle } from 'lucide-react';
 
 export function CancelPlanPage() {
   const navigate = useNavigate();
@@ -8,6 +8,7 @@ export function CancelPlanPage() {
   const [feedback, setFeedback] = useState('');
   const [loading, setLoading] = useState(false);
   const [showConfirmation, setShowConfirmation] = useState(false);
+  const [cancelled, setCancelled] = useState(false);
 
   const reasons = [
     'Too expensive',
@@ -25,8 +26,7 @@ export function CancelPlanPage() {
       // TODO: Add API call to cancel subscription
       await new Promise(resolve => setTimeout(resolve, 1000)); // Simulated API call
       
-      alert('Your subscription has been cancelled. You will retain access until the end of your billing period.');
-      navigate('/dashboard?tab=billing');
+      setCancelled(true);
     } catch (error) {
       console.error('Failed to cancel plan:', error);
       alert('Failed to cancel plan. Please try again or contact support.');
@@ -34,6 +34,73 @@ export function CancelPlanPage() {
       setLoading(false);
     }
   };
+
+  // Confirmation page after successful cancellation
+  if (cancelled) {
+    return (
+      <div className="max-w-2xl mx-auto">
+        <div className="bg-white rounded-2xl border-2 border-slate-200 p-8 md:p-12 text-center">
+          {/* Success Icon */}
+          <div className="inline-flex items-center justify-center w-20 h-20 bg-green-100 rounded-full mb-6">
+            <CheckCircle className="w-12 h-12 text-green-600" />
+          </div>
+
+          {/* Heading */}
+          <h1 className="text-3xl font-bold text-slate-900 mb-4">
+            Your plan has been cancelled
+          </h1>
+          
+          {/* Description */}
+          <p className="text-lg text-slate-600 mb-6 max-w-lg mx-auto">
+            We've successfully cancelled your subscription. You will retain access to all features until the end of your current billing period.
+          </p>
+
+          {/* Important Info Box */}
+          <div className="bg-blue-50 border-2 border-blue-200 rounded-xl p-6 mb-8 text-left">
+            <h3 className="font-semibold text-slate-900 mb-3">What happens next?</h3>
+            <ul className="space-y-2 text-sm text-slate-700">
+              <li className="flex items-start gap-2">
+                <span className="text-blue-600 mt-0.5">•</span>
+                <span>Your account remains active until the end of your billing period</span>
+              </li>
+              <li className="flex items-start gap-2">
+                <span className="text-blue-600 mt-0.5">•</span>
+                <span>You can reactivate your subscription anytime from the billing page</span>
+              </li>
+              <li className="flex items-start gap-2">
+                <span className="text-blue-600 mt-0.5">•</span>
+                <span>Your data will be safely stored for 30 days after cancellation</span>
+              </li>
+            </ul>
+          </div>
+
+          {/* CTA Buttons */}
+          <div className="flex flex-col sm:flex-row gap-4 justify-center">
+            <button
+              onClick={() => navigate('/dashboard?tab=billing')}
+              className="px-8 py-3 bg-slate-900 text-white rounded-lg font-semibold hover:bg-slate-800 transition-colors"
+            >
+              Back to Dashboard
+            </button>
+            
+            <button
+              onClick={() => navigate('/contact-us')}
+              className="px-8 py-3 bg-white border-2 border-slate-300 text-slate-700 rounded-lg font-semibold hover:bg-slate-50 hover:border-slate-400 transition-colors"
+            >
+              Contact Support
+            </button>
+          </div>
+
+          {/* Thank You Message */}
+          <div className="mt-8 pt-6 border-t border-slate-200">
+            <p className="text-sm text-slate-500">
+              Thank you for using Feedback Page. We hope to see you again soon!
+            </p>
+          </div>
+        </div>
+      </div>
+    );
+  }
 
   if (showConfirmation) {
     return (
@@ -145,30 +212,7 @@ export function CancelPlanPage() {
       </div>
 
       {/* Alternative Options */}
-      <div className="bg-blue-50 border-2 border-blue-200 rounded-xl p-6 mb-6">
-        <h3 className="text-lg font-semibold text-slate-900 mb-3">Before you go...</h3>
-        <p className="text-slate-700 mb-4">Have you considered these alternatives?</p>
-        <div className="space-y-3">
-          <div className="flex items-start gap-3 bg-white rounded-lg p-4">
-            <div className="w-5 h-5 rounded-full bg-blue-100 flex items-center justify-center flex-shrink-0 mt-0.5">
-              <Check className="w-3 h-3 text-blue-600" />
-            </div>
-            <div>
-              <div className="font-semibold text-slate-900">Downgrade to a lower plan</div>
-              <div className="text-sm text-slate-600">Save money while keeping essential features</div>
-            </div>
-          </div>
-          <div className="flex items-start gap-3 bg-white rounded-lg p-4">
-            <div className="w-5 h-5 rounded-full bg-blue-100 flex items-center justify-center flex-shrink-0 mt-0.5">
-              <Check className="w-3 h-3 text-blue-600" />
-            </div>
-            <div>
-              <div className="font-semibold text-slate-900">Contact support</div>
-              <div className="text-sm text-slate-600">We're here to help resolve any issues you're facing</div>
-            </div>
-          </div>
-        </div>
-      </div>
+      
 
       {/* Action Buttons */}
       <div className="bg-white rounded-xl border border-slate-200 p-6">

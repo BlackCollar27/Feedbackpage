@@ -378,28 +378,10 @@ export function PricingPage() {
         {/* FAQ or Additional Info */}
         <div className="mt-16 text-center">
           <p className="text-slate-600">
-            All plans include a 14-day free trial. No credit card required.{' '}
+            All plans include a 30-day free trial. No credit card required.{' '}
             <Link to="/help" className="text-blue-600 hover:text-blue-700 font-medium">
               Learn more
             </Link>
-          </p>
-        </div>
-
-        {/* Demo Note */}
-        <div className="mt-8 max-w-3xl mx-auto bg-blue-50 border border-blue-200 rounded-xl p-6">
-          <h3 className="font-semibold text-blue-900 mb-2">Demo Mode</h3>
-          <p className="text-sm text-blue-800">
-            This is a demonstration app. To enable real Stripe payments, you'll need to configure your Stripe API keys 
-            in the Supabase Edge Functions. See the{' '}
-            <a 
-              href="https://github.com/yourusername/feedback-page#stripe-integration-production" 
-              className="underline font-medium"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              README
-            </a>{' '}
-            for detailed setup instructions.
           </p>
         </div>
       </section>

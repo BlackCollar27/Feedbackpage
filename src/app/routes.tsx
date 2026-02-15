@@ -24,6 +24,7 @@ import { LocationStatsPage } from './components/dashboard/LocationStatsPage';
 import { CancelPlanPage } from './components/dashboard/CancelPlanPage';
 import { PlansPage } from './components/dashboard/PlansPage';
 import { ContactSupportPage } from './components/dashboard/ContactSupportPage';
+import { TrialExpiredPage } from './components/dashboard/TrialExpiredPage';
 import { AdminLayout } from './components/admin/AdminLayout';
 import { AdminDashboard } from './components/admin/AdminDashboard';
 import { AdminUsersPage } from './components/admin/AdminUsersPage';
@@ -112,6 +113,10 @@ export const router = createBrowserRouter([
       {
         path: 'contact-support',
         Component: ContactSupportPage,
+      },
+      {
+        path: 'trial-expired',
+        Component: TrialExpiredPage,
       },
     ],
   },
