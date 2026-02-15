@@ -10,6 +10,47 @@ export function ContactUsPage() {
   const navigate = useNavigate();
   const { user } = useAuth();
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const [submitting, setSubmitting] = useState(false);
+  const [submitted, setSubmitted] = useState(false);
+  const [formData, setFormData] = useState({
+    name: '',
+    email: '',
+    phone: '',
+    subject: '',
+    message: ''
+  });
+
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
+    const { name, value } = e.target;
+    setFormData(prev => ({
+      ...prev,
+      [name]: value
+    }));
+  };
+
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    setSubmitting(true);
+
+    // Simulate API call
+    await new Promise(resolve => setTimeout(resolve, 1500));
+
+    console.log('Contact form submitted:', formData);
+    setSubmitted(true);
+    setSubmitting(false);
+
+    // Reset form after 3 seconds
+    setTimeout(() => {
+      setFormData({
+        name: '',
+        email: '',
+        phone: '',
+        subject: '',
+        message: ''
+      });
+      setSubmitted(false);
+    }, 3000);
+  };
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-slate-50 to-slate-100">
@@ -37,10 +78,16 @@ export function ContactUsPage() {
             {/* Desktop Navigation */}
             <div className="hidden md:flex items-center gap-2 md:gap-3">
               <Link
-                to="/home"
+                to="/"
                 className="text-xs md:text-sm font-medium text-slate-600 hover:text-slate-900 transition-colors px-2 md:px-3 py-1.5 md:py-2"
               >
                 Home
+              </Link>
+              <Link
+                to="/how-it-works"
+                className="text-xs md:text-sm font-medium text-slate-600 hover:text-slate-900 transition-colors px-2 md:px-3 py-1.5 md:py-2"
+              >
+                How It Works
               </Link>
               <Link
                 to="/features"
@@ -85,7 +132,7 @@ export function ContactUsPage() {
             <div className="md:hidden mt-4 pb-4 border-t border-slate-200 pt-4">
               <nav className="flex flex-col space-y-2">
                 <Link
-                  to="/home"
+                  to="/"
                   onClick={() => setMobileMenuOpen(false)}
                   className="px-4 py-2 text-sm font-medium text-slate-600 hover:text-slate-900 hover:bg-slate-50 rounded-lg transition-colors"
                 >
@@ -97,6 +144,13 @@ export function ContactUsPage() {
                   className="px-4 py-2 text-sm font-medium text-slate-600 hover:text-slate-900 hover:bg-slate-50 rounded-lg transition-colors"
                 >
                   Features
+                </Link>
+                <Link
+                  to="/how-it-works"
+                  onClick={() => setMobileMenuOpen(false)}
+                  className="px-4 py-2 text-sm font-medium text-slate-600 hover:text-slate-900 hover:bg-slate-50 rounded-lg transition-colors"
+                >
+                  How It Works
                 </Link>
                 <Link
                   to="/pricing"
@@ -302,6 +356,14 @@ export function ContactUsPage() {
                   </>
                 )}
               </button>
+
+              {/* Submission Confirmation */}
+              {submitted && (
+                <div className="mt-4 text-sm text-green-500 flex items-center gap-2">
+                  <CheckCircle2 className="w-5 h-5" />
+                  Message sent successfully!
+                </div>
+              )}
             </form>
           </div>
         </div>

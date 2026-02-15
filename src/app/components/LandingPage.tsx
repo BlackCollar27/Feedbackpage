@@ -57,16 +57,16 @@ export function LandingPage() {
                 Home
               </Link>
               <Link
-                to="/features"
-                className="text-xs md:text-sm font-medium text-slate-600 hover:text-slate-900 transition-colors px-2 md:px-3 py-1.5 md:py-2"
-              >
-                Features
-              </Link>
-              <Link
                 to="/how-it-works"
                 className="text-xs md:text-sm font-medium text-slate-600 hover:text-slate-900 transition-colors px-2 md:px-3 py-1.5 md:py-2"
               >
                 How It Works
+              </Link>
+              <Link
+                to="/features"
+                className="text-xs md:text-sm font-medium text-slate-600 hover:text-slate-900 transition-colors px-2 md:px-3 py-1.5 md:py-2"
+              >
+                Features
               </Link>
               <Link
                 to="/pricing"
@@ -103,18 +103,18 @@ export function LandingPage() {
                   Home
                 </Link>
                 <Link
-                  to="/features"
-                  onClick={() => setMobileMenuOpen(false)}
-                  className="px-4 py-2 text-sm font-medium text-slate-600 hover:text-slate-900 hover:bg-slate-50 rounded-lg transition-colors"
-                >
-                  Features
-                </Link>
-                <Link
                   to="/how-it-works"
                   onClick={() => setMobileMenuOpen(false)}
                   className="px-4 py-2 text-sm font-medium text-slate-600 hover:text-slate-900 hover:bg-slate-50 rounded-lg transition-colors"
                 >
                   How It Works
+                </Link>
+                <Link
+                  to="/features"
+                  onClick={() => setMobileMenuOpen(false)}
+                  className="px-4 py-2 text-sm font-medium text-slate-600 hover:text-slate-900 hover:bg-slate-50 rounded-lg transition-colors"
+                >
+                  Features
                 </Link>
                 <Link
                   to="/pricing"

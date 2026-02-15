@@ -46,8 +46,13 @@ export function Footer() {
               />
             </button>
             <ul className={`space-y-3 overflow-hidden transition-all duration-300 sm:!max-h-none sm:!opacity-100 ${
-              isSectionOpen('product') ? 'max-h-40 opacity-100' : 'max-h-0 opacity-0'
+              isSectionOpen('product') ? 'max-h-60 opacity-100' : 'max-h-0 opacity-0'
             }`}>
+              <li className="text-center sm:text-left">
+                <Link to="/how-it-works" className="hover:text-slate-900 transition-colors text-sm md:text-base">
+                  How It Works
+                </Link>
+              </li>
               <li className="text-center sm:text-left">
                 <Link to="/pricing" className="hover:text-slate-900 transition-colors text-sm md:text-base">
                   Pricing
@@ -56,40 +61,6 @@ export function Footer() {
               <li className="text-center sm:text-left">
                 <Link to="/" className="hover:text-slate-900 transition-colors text-sm md:text-base">
                   Demo
-                </Link>
-              </li>
-            </ul>
-          </div>
-
-          {/* Company */}
-          <div>
-            <button
-              onClick={() => toggleSection('company')}
-              className="w-full flex items-center justify-between sm:cursor-default text-center sm:text-left mb-4"
-            >
-              <h3 className="text-slate-900 font-semibold text-base md:text-lg flex-1 sm:flex-none">Company</h3>
-              <ChevronDown 
-                className={`w-5 h-5 text-slate-900 transition-transform sm:hidden ${
-                  isSectionOpen('company') ? 'rotate-180' : ''
-                }`}
-              />
-            </button>
-            <ul className={`space-y-3 overflow-hidden transition-all duration-300 sm:!max-h-none sm:!opacity-100 ${
-              isSectionOpen('company') ? 'max-h-40 opacity-100' : 'max-h-0 opacity-0'
-            }`}>
-              <li className="text-center sm:text-left">
-                <Link to="/" className="hover:text-slate-900 transition-colors text-sm md:text-base">
-                  About
-                </Link>
-              </li>
-              <li className="text-center sm:text-left">
-                <Link to="/contact-us" className="hover:text-slate-900 transition-colors text-sm md:text-base">
-                  Contact
-                </Link>
-              </li>
-              <li className="text-center sm:text-left">
-                <Link to="/contact-us" className="hover:text-slate-900 transition-colors text-sm md:text-base">
-                  Enterprise
                 </Link>
               </li>
             </ul>
@@ -140,33 +111,7 @@ export function Footer() {
             <div className={`overflow-hidden transition-all duration-300 sm:!max-h-none sm:!opacity-100 ${
               isSectionOpen('connect') ? 'max-h-40 opacity-100' : 'max-h-0 opacity-0'
             }`}>
-              <div className="flex gap-3 justify-center sm:justify-start mb-4">
-                <a 
-                  href="https://twitter.com/feedbackpage" 
-                  target="_blank" 
-                  rel="noopener noreferrer"
-                  className="w-10 h-10 bg-slate-900 rounded-lg flex items-center justify-center hover:bg-slate-800 transition-colors"
-                >
-                  <Twitter className="w-5 h-5 text-white" />
-                </a>
-                <a 
-                  href="https://linkedin.com/company/feedbackpage" 
-                  target="_blank" 
-                  rel="noopener noreferrer"
-                  className="w-10 h-10 bg-slate-900 rounded-lg flex items-center justify-center hover:bg-slate-800 transition-colors"
-                >
-                  <Linkedin className="w-5 h-5 text-white" />
-                </a>
-                <a 
-                  href="https://facebook.com/feedbackpage" 
-                  target="_blank" 
-                  rel="noopener noreferrer"
-                  className="w-10 h-10 bg-slate-900 rounded-lg flex items-center justify-center hover:bg-slate-800 transition-colors"
-                >
-                  <Facebook className="w-5 h-5 text-white" />
-                </a>
-              </div>
-              <div className="flex justify-center sm:justify-start">
+              <div className="flex flex-col gap-3 items-center sm:items-start">
                 <a 
                   href="mailto:support@feedbackpage.com" 
                   className="flex items-center gap-2 text-sm md:text-base hover:text-slate-900 transition-colors"
@@ -174,6 +119,12 @@ export function Footer() {
                   <Mail className="w-4 h-4" />
                   <span className="break-all sm:break-normal">support@feedbackpage.com</span>
                 </a>
+                <Link
+                  to="/contact-us"
+                  className="px-4 py-2 bg-slate-900 text-white rounded-lg text-sm md:text-base hover:bg-slate-800 transition-colors"
+                >
+                  Contact Us
+                </Link>
               </div>
             </div>
           </div>
