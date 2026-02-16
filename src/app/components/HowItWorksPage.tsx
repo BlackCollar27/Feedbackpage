@@ -153,8 +153,8 @@ export function HowItWorksPage() {
             
             {/* Step 1 */}
             <div className="flex flex-col md:flex-row items-center gap-8 md:gap-12">
-              {/* Header - Order 1 on mobile, Order 1 on desktop */}
-              <div className="flex-1 order-1 md:order-1 w-full">
+              {/* Mobile Header - Centered */}
+              <div className="flex-1 order-1 w-full md:hidden text-center">
                 <div className="inline-block px-4 py-1.5 bg-slate-900 text-white text-sm font-semibold rounded-full mb-4">
                   Step 1
                 </div>
@@ -178,12 +178,12 @@ export function HowItWorksPage() {
                 </div>
               </div>
 
-              {/* Description - Order 3 on mobile, hide on desktop and show in first column */}
-              <div className="flex-1 order-3 md:order-1 w-full md:hidden">
+              {/* Mobile Description - Centered */}
+              <div className="flex-1 order-3 w-full md:hidden text-center">
                 <p className="text-lg text-slate-600 mb-6">
                   After a purchase or service, customers receive a link to your custom feedback page. They're greeted with a simple 1-5 star rating system to share their experience.
                 </p>
-                <div className="flex items-center gap-2 text-slate-700">
+                <div className="flex items-center justify-center gap-2 text-slate-700">
                   <CheckCircle className="w-5 h-5 text-green-600" />
                   <span className="text-sm">Simple and mobile-friendly interface</span>
                 </div>
@@ -209,8 +209,8 @@ export function HowItWorksPage() {
 
             {/* Step 2A - Low Rating Path */}
             <div className="flex flex-col md:flex-row items-center gap-8 md:gap-12">
-              {/* Header - Mobile Order 1 */}
-              <div className="flex-1 order-1 w-full md:hidden">
+              {/* Mobile Header - Centered */}
+              <div className="flex-1 order-1 w-full md:hidden text-center">
                 <div className="inline-block px-4 py-1.5 bg-red-600 text-white text-sm font-semibold rounded-full mb-4">Low Rating (1-3 Stars)</div>
                 <h3 className="text-2xl md:text-3xl text-slate-900 mb-4">
                   Unhappy Customers Give Private Feedback
@@ -233,17 +233,17 @@ export function HowItWorksPage() {
                 </div>
               </div>
 
-              {/* Description - Mobile Order 3 */}
-              <div className="flex-1 order-3 w-full md:hidden">
+              {/* Mobile Description - Centered */}
+              <div className="flex-1 order-3 w-full md:hidden text-center">
                 <p className="text-lg text-slate-600 mb-6">
                   Customers with low ratings are redirected to a private feedback form where they can share what went wrong. This keeps negative experiences out of public view and gives you a chance to make things right.
                 </p>
                 <div className="space-y-2">
-                  <div className="flex items-center gap-2 text-slate-700">
+                  <div className="flex items-center justify-center gap-2 text-slate-700">
                     <CheckCircle className="w-5 h-5 text-green-600" />
                     <span className="text-sm">Capture detailed feedback privately</span>
                   </div>
-                  <div className="flex items-center gap-2 text-slate-700">
+                  <div className="flex items-center justify-center gap-2 text-slate-700">
                     <CheckCircle className="w-5 h-5 text-green-600" />
                     <span className="text-sm">Option for customers to request contact</span>
                   </div>
@@ -274,8 +274,8 @@ export function HowItWorksPage() {
 
             {/* Step 2B - High Rating Path */}
             <div className="flex flex-col md:flex-row items-center gap-8 md:gap-12">
-              {/* Header - Mobile Order 1 */}
-              <div className="flex-1 order-1 w-full md:hidden">
+              {/* Mobile Header - Centered */}
+              <div className="flex-1 order-1 w-full md:hidden text-center">
                 <div className="inline-block px-4 py-1.5 bg-green-600 text-white text-sm font-semibold rounded-full mb-4">High Rating (4-5 Stars)</div>
                 <h3 className="text-2xl md:text-3xl text-slate-900 mb-4">
                   Happy Customers Leave Public Reviews
@@ -298,17 +298,17 @@ export function HowItWorksPage() {
                 </div>
               </div>
 
-              {/* Description - Mobile Order 3 */}
-              <div className="flex-1 order-3 w-full md:hidden">
+              {/* Mobile Description - Centered */}
+              <div className="flex-1 order-3 w-full md:hidden text-center">
                 <p className="text-lg text-slate-600 mb-6">
                   Satisfied customers are directed to a thank-you page with direct links to your Google, Yelp, Facebook, or other review platforms. Make it easy for happy customers to share their experience publicly.
                 </p>
                 <div className="space-y-2">
-                  <div className="flex items-center gap-2 text-slate-700">
+                  <div className="flex items-center justify-center gap-2 text-slate-700">
                     <CheckCircle className="w-5 h-5 text-green-600" />
                     <span className="text-sm">Link to multiple review platforms</span>
                   </div>
-                  <div className="flex items-center gap-2 text-slate-700">
+                  <div className="flex items-center justify-center gap-2 text-slate-700">
                     <CheckCircle className="w-5 h-5 text-green-600" />
                     <span className="text-sm">Increase positive online reviews</span>
                   </div>
@@ -339,8 +339,8 @@ export function HowItWorksPage() {
 
             {/* Step 3 */}
             <div className="flex flex-col md:flex-row items-center gap-8 md:gap-12">
-              {/* Header - Mobile Order 1 */}
-              <div className="flex-1 order-1 w-full md:hidden">
+              {/* Mobile Header - Centered */}
+              <div className="flex-1 order-1 w-full md:hidden text-center">
                 <div className="inline-block px-4 py-1.5 bg-slate-900 text-white text-sm font-semibold rounded-full mb-4">
                   Step 3
                 </div>
@@ -368,21 +368,21 @@ export function HowItWorksPage() {
                 </div>
               </div>
 
-              {/* Description - Mobile Order 3 */}
-              <div className="flex-1 order-3 w-full md:hidden">
+              {/* Mobile Description - Centered */}
+              <div className="flex-1 order-3 w-full md:hidden text-center">
                 <p className="text-lg text-slate-600 mb-6">
                   View all feedback in your dashboard with real-time analytics. Export data, respond to concerns, and use insights to continuously improve your business.
                 </p>
                 <div className="space-y-2">
-                  <div className="flex items-center gap-2 text-slate-700">
+                  <div className="flex items-center justify-center gap-2 text-slate-700">
                     <CheckCircle className="w-5 h-5 text-green-600" />
                     <span className="text-sm">Real-time dashboard with analytics</span>
                   </div>
-                  <div className="flex items-center gap-2 text-slate-700">
+                  <div className="flex items-center justify-center gap-2 text-slate-700">
                     <CheckCircle className="w-5 h-5 text-green-600" />
                     <span className="text-sm">Export feedback data as CSV</span>
                   </div>
-                  <div className="flex items-center gap-2 text-slate-700">
+                  <div className="flex items-center justify-center gap-2 text-slate-700">
                     <CheckCircle className="w-5 h-5 text-green-600" />
                     <span className="text-sm">Identify trends and improvement areas</span>
                   </div>
