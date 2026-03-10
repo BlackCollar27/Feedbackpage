@@ -15,6 +15,25 @@ export function ThankYouPage() {
   const [business, setBusiness] = useState<any>(null);
   const [copied, setCopied] = useState(false);
   
+  // Fallback review platforms if API doesn't load
+  const defaultReviewPlatforms = [
+    {
+      name: 'Google Reviews',
+      url: 'https://g.page/r/demo',
+      icon: 'google'
+    },
+    {
+      name: 'Yelp',
+      url: 'https://www.yelp.com/biz/demo',
+      icon: 'yelp'
+    },
+    {
+      name: 'Facebook',
+      url: 'https://www.facebook.com/demo',
+      icon: 'facebook'
+    }
+  ];
+  
   // Debug logging
   useEffect(() => {
     console.log('ThankYouPage - location.state:', location.state);
@@ -34,8 +53,15 @@ export function ThankYouPage() {
         
         const data = await api.getBusiness('demo-business');
         setBusiness(data);
+        console.log('ThankYouPage - loaded business:', data);
       } catch (error) {
         console.error('Failed to load business:', error);
+        // Set a fallback business with default platforms
+        setBusiness({
+          id: 'demo-business',
+          name: 'Sunny Side Cafe',
+          reviewPlatforms: defaultReviewPlatforms
+        });
       }
     };
 
