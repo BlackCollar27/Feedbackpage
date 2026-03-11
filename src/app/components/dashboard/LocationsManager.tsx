@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { MapPin, Plus, Edit2, ExternalLink, Copy, Check, ChevronRight, ArrowUpCircle } from 'lucide-react';
+import { MapPin, Plus, Edit2, ExternalLink, Copy, Check, ChevronRight, ArrowUpCircle, QrCode } from 'lucide-react';
 import { useNavigate } from 'react-router';
 import { api } from '../../api/client';
 
@@ -71,7 +71,7 @@ export function LocationsManager() {
   return (
     <div className="space-y-6">
       {/* Header */}
-      <div className="flex flex-col items-center gap-4">
+      <div className="flex flex-col items-center gap-4" data-tour="locations">
         <div className="text-center">
           <h2 className="text-2xl text-slate-900">Locations</h2>
           <p className="text-slate-600 mt-1">Manage your business locations and feedback pages</p>
@@ -192,7 +192,7 @@ export function LocationsManager() {
               </div>
 
               {/* Feedback URL */}
-              <div className="pt-4 border-t border-slate-200">
+              <div className="pt-4 border-t border-slate-200" data-tour="feedback-link">
                 <p className="text-xs font-medium text-slate-700 mb-2">Feedback Page:</p>
                 <div className="flex items-center gap-2">
                   <button
@@ -216,10 +216,10 @@ export function LocationsManager() {
                     target="_blank"
                     rel="noopener noreferrer"
                     onClick={(e) => e.stopPropagation()}
-                    className="flex-1 flex items-center justify-center gap-2 px-4 py-2 text-sm font-medium text-blue-600 bg-blue-50 hover:bg-blue-100 rounded-lg transition-colors"
+                    className="px-4 py-2 text-sm font-medium text-slate-700 bg-slate-50 hover:bg-slate-100 rounded-lg transition-colors"
+                    data-tour="qr-code"
                   >
-                    <ExternalLink className="w-4 h-4" />
-                    View Page
+                    <QrCode className="w-4 h-4" />
                   </a>
                 </div>
               </div>

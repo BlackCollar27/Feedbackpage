@@ -8,6 +8,9 @@ import { OptInPage } from './components/OptInPage';
 import { SubmittedPage } from './components/SubmittedPage';
 import { SuggestionForm } from './components/SuggestionForm';
 import { LoginPage } from './components/LoginPage';
+import { ForgotPasswordPage } from './components/ForgotPasswordPage';
+import { ResetPasswordPage } from './components/ResetPasswordPage';
+import { EmailVerificationPage } from './components/EmailVerificationPage';
 import { OnboardingFlow } from './components/OnboardingFlow';
 import { Dashboard } from './components/Dashboard';
 import { DashboardLayout } from './components/dashboard/DashboardLayout';
@@ -77,6 +80,18 @@ export const router = createBrowserRouter([
   {
     path: '/login',
     Component: LoginPage,
+  },
+  {
+    path: '/forgot-password',
+    Component: ForgotPasswordPage,
+  },
+  {
+    path: '/reset-password',
+    Component: ResetPasswordPage,
+  },
+  {
+    path: '/email-verification',
+    Component: EmailVerificationPage,
   },
   {
     path: '/onboarding',

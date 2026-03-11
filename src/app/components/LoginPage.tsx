@@ -270,6 +270,13 @@ export function LoginPage() {
                 {isSignUp && (
                   <p className="mt-1 text-xs text-slate-500">Must be at least 6 characters</p>
                 )}
+                {!isSignUp && (
+                  <div className="mt-2 text-right">
+                    <Link to="/forgot-password" className="text-sm text-blue-600 hover:text-blue-700 font-medium">
+                      Forgot password?
+                    </Link>
+                  </div>
+                )}
               </div>
 
               <button

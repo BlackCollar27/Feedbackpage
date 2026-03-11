@@ -1,15 +1,29 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { useNavigate, Outlet, useLocation } from 'react-router';
 import { LayoutDashboard, MessageSquare, LogOut, Menu, X, MapPin, CreditCard, Gift, HelpCircle } from 'lucide-react';
 import { useAuth } from '../../contexts/AuthContext';
 import logo from "figma:asset/522972406135c9ad603cf025748077edfe6ccf73.png";
 import { TrialBanner } from './TrialBanner';
+import { UserGuideTour, UserGuideButton } from './UserGuideTour';
 
 export function DashboardLayout() {
   const navigate = useNavigate();
   const location = useLocation();
   const { user, signOut } = useAuth();
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const [showTour, setShowTour] = useState(false);
+
+  // Check if this is user's first visit
+  const isFirstVisit = !localStorage.getItem('feedback-page-tour-completed');
+  
+  // Auto-start tour for first-time users on the overview page
+  useEffect(() => {
+    if (isFirstVisit && location.pathname === '/dashboard') {
+      // Delay tour start to let page load
+      const timer = setTimeout(() => setShowTour(true), 1000);
+      return () => clearTimeout(timer);
+    }
+  }, [isFirstVisit, location.pathname]);
 
   // Mock trial data - In production, this would come from your backend/database
   // This simulates a user who started their trial and has X days remaining
@@ -113,12 +127,18 @@ export function DashboardLayout() {
                 <button
                   key={tab.id}
                   onClick={() => navigate(tab.path)}
+                  data-tour={tab.id === 'feedback' ? 'sidebar-feedback' : tab.id === 'opt-ins' ? 'sidebar-optins' : undefined}
                   className="w-full flex items-center gap-3 px-4 py-3 rounded-lg transition-colors text-slate-600 hover:bg-slate-50"
                 >
                   <tab.icon className="w-5 h-5" />
                   <span className="font-medium">{tab.label}</span>
                 </button>
               ))}
+              
+              {/* Help/Tutorial Button */}
+              <div className="pt-4 border-t border-slate-200">
+                <UserGuideButton />
+              </div>
             </nav>
 
             {/* User & Logout */}
@@ -152,6 +172,9 @@ export function DashboardLayout() {
           </footer>
         </main>
       </div>
+      
+      {/* User Guide Tour - Auto-starts for first-time users */}
+      <UserGuideTour run={showTour} onComplete={() => setShowTour(false)} />
     </div>
   );
 }
