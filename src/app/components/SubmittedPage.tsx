@@ -1,40 +1,16 @@
-import { useState, useEffect } from 'react';
 import { useNavigate, useLocation, Link } from 'react-router';
 import { CheckCircle2 } from 'lucide-react';
 import logo from "figma:asset/522972406135c9ad603cf025748077edfe6ccf73.png";
-import { api } from '../api/client';
-import { Business } from '../types';
 
 export function SubmittedPage() {
   const navigate = useNavigate();
   const location = useLocation();
-  const [business, setBusiness] = useState<Business | null>(null);
   
   // Determine type based on the route
   const type = location.pathname.includes('suggestion') ? 'suggestion' : 'feedback';
 
-  useEffect(() => {
-    loadBusiness();
-  }, []);
-
-  const loadBusiness = async () => {
-    try {
-      await api.initDemo();
-      const businessId = 'demo-business';
-      const businessData = await api.getBusiness(businessId);
-      setBusiness(businessData);
-    } catch (error) {
-      console.error('Failed to load business:', error);
-    }
-  };
-
-  if (!business) {
-    return (
-      <div className="min-h-screen bg-white flex items-center justify-center">
-        <div className="text-slate-600">Loading...</div>
-      </div>
-    );
-  }
+  // Get business name from localStorage or use default
+  const businessName = localStorage.getItem('feedbackBusinessName') || 'the business';
 
   return (
     <div className="min-h-screen bg-white flex items-center justify-center p-4 md:p-6">
@@ -64,8 +40,8 @@ export function SubmittedPage() {
           </h1>
           <p className="text-sm text-gray-600 mb-8">
             {type === 'feedback' 
-              ? `Your feedback has been received by ${business.name}. We take all feedback seriously and will work to improve.`
-              : `Your suggestion has been received by ${business.name}. We appreciate you taking the time to help us improve!`
+              ? `Your feedback has been received by ${businessName}. We take all feedback seriously and will work to improve.`
+              : `Your suggestion has been received by ${businessName}. We appreciate you taking the time to help us improve!`
             }
           </p>
 
